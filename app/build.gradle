@@ -1,0 +1,61 @@
+plugins {
+    alias(libs.plugins.androidApplication)
+}
+
+android {
+    namespace 'com.zgcwkj.jdcookie'
+    compileSdk 34
+    
+    defaultConfig {
+        minSdk 23
+        targetSdk 34
+        versionCode 1
+        versionName "1.1"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            // 代码混淆
+            minifyEnabled true
+
+            // 移除没用的资源文件
+            shrinkResources true
+
+            //压缩
+            zipAlignEnabled true
+
+            // Includes the default ProGuard rules files that are packaged with
+            // the Android Gradle plugin. To learn more, go to the section about
+            // R8 configuration files.
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    
+    signingConfigs {
+        debug {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation libs.appcompat
+    implementation libs.material
+
+    //implementation 'androidx.navigation:navigation-ui:2.5.2'
+    //implementation 'androidx.navigation:navigation-fragment:2.5.2'
+    //implementation 'com.ejlchina:okhttps-gson:3.5.3'
+    //implementation 'com.squareup.okio:okio:3.2.0'
+}

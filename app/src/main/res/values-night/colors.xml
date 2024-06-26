@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Icon -->
-    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="ic_launcher_background">#000000</color>
     <!-- AppTheme -->
     <color name="colorPrimary">#0060A0</color>
     <color name="colorPrimaryDark">#0060A0</color>
     <color name="colorAccent">#0060A0</color>
     <!--自定义样式-->
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#000000</color>
+    <color name="colorBlack">#FFFFFF</color>
     <color name="colorRed">#FF0000</color>
     <color name="colorYellow">#FFA200</color>
     <color name="colorBlue">#0087CD</color>

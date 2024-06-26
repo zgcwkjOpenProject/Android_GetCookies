@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/web_listview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    android:elevation="5dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/web_select"
+        android:layout_width="16dp"
+        android:layout_height="60dp"
+        android:background="#8E8E8E"
+        android:orientation="horizontal"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/web_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/web_url"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical|left"
+            android:textSize="24dp"
+            android:textStyle="bold"></TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_vertical|left"
+                android:text="@string/strRemark"
+                android:textColor="#F00"
+                android:textSize="18dp"></TextView>
+
+            <TextView
+                android:id="@+id/web_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|left"
+                android:textSize="18dp"></TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:gravity="center_vertical|left"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/web_btn_edit"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/ico_edit" />
+
+        <Button
+            android:id="@+id/web_btn_delete"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/ico_delete" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/navigation_web">
+
+    <fragment
+        android:id="@+id/navigation_browser"
+        android:name="com.zgcwkj.getcks.browser.BrowserFragment"
+        android:label="@string/menu_browser"
+        tools:layout="@layout/fragment_browser" />
+
+    <fragment
+        android:id="@+id/navigation_web"
+        android:name="com.zgcwkj.getcks.web.WebFragment"
+        android:label="@string/menu_web"
+        tools:layout="@layout/fragment_web" />
+</navigation>

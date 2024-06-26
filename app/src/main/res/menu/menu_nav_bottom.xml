@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_browser"
+        android:icon="@drawable/ico_browser"
+        android:title="@string/menu_browser" />
+
+    <item
+        android:id="@+id/navigation_web"
+        android:icon="@drawable/ico_web"
+        android:title="@string/menu_web" />
+</menu>

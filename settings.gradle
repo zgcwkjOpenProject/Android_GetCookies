@@ -20,4 +20,4 @@ dependencyResolutionManagement {
 }
 
 include ':app'
-rootProject.name = "jdcookie"
+rootProject.name = "获取CK"

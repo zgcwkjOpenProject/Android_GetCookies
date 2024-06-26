@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/web_btnAdd"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="@string/strAdd"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/web_btnQl"
+        android:title="@string/strQl"
+        app:showAsAction="always" />
+</menu>

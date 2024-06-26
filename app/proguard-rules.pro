@@ -27,4 +27,4 @@
 -keepattributes AnnotationDefault,RuntimeVisibleAnnotations
 
 # 数据实体对象结构
--keep class com.zgcwkj.jdcookie.models.** { *; }
+-keep class com.zgcwkj.models.** { *; }

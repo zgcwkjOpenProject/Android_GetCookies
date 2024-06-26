@@ -106,7 +106,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="50dp"
+                android:paddingRight="10dp"
                 android:text="相同网址，共享身份"
                 android:textColor="@color/colorRed" />
 

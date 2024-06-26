@@ -52,7 +52,7 @@ public class CookieHep {
                 } else {
                     //传到青龙
                     QLongHelp.saveCookie(context, qlData, cookieStr, data.getRemark());
-                    Toast.makeText(context, "内容已传输到剪切板", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "内容已传输到青龙", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(context, "内容为空", Toast.LENGTH_SHORT).show();

@@ -7,12 +7,7 @@ import android.widget.Toast;
 import com.zgcwkj.models.WebData;
 
 public class CookieHep {
-    /**
-     * 获取 Cookie
-     *
-     * @param context
-     * @return
-     */
+    //获取 Cookie
     public static String getCookie(Context context, WebData data) {
         var isCopy = false;
         if (data == null || data.getId().isEmpty()) {
@@ -39,10 +34,11 @@ public class CookieHep {
                 }
             }
         }
+        //清理两端空格
+        cookieStr = cookieStr.trim();
         //是否复制
         if (isCopy) {
             //将内容复制到剪切板
-            cookieStr = cookieStr.trim();
             if (!cookieStr.isEmpty()) {
                 var qlData = QLongHelp.getData(context);
                 if (qlData.getWeburl().isEmpty()) {
@@ -62,11 +58,7 @@ public class CookieHep {
         return cookieStr;
     }
 
-    /**
-     * 设置Cookie
-     *
-     * @return
-     */
+    //设置Cookie
     public static boolean setCookie(Context context, WebData data) {
         //var dataPath = CommonHelp.getDataPath(context);
         //var cookiePath = dataPath + "/app_webview/Default/Cookies";

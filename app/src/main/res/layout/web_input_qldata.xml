@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="青龙地址：" />
+                android:text="@string/strConfigQlUrl" />
 
             <EditText
                 android:id="@+id/web_inputData_qlurl"

@@ -1,17 +1,20 @@
 <resources>
     <string name="appName">获取CK</string>
     <string name="appLoading">拼命加载中...</string>
+    <string name="strQl">青龙</string>
+    <string name="strGetCK">获取CK</string>
     <!--菜单-->
     <string name="menu_web">网站</string>
     <string name="menu_browser">浏览器</string>
-    <!--添加网站输入框-->
-    <string name="strAddWeb">添加新的网站</string>
+    <!--输入框-->
+    <string name="strAddWeb">添加新的网站（相同网址时，共享身份）</string>
     <string name="strWebUrl">网站地址：</string>
     <string name="strCookieKey">获取CK键：</string>
     <string name="strCookie">匹配CK值：</string>
     <string name="strRemark">备 注：</string>
     <string name="strConfigQL">配置青龙</string>
-    <!--对话框按钮-->
+    <string name="strConfigQlUrl">青龙地址：</string>
+    <!--普通字符-->
     <string name="strOk">确定</string>
     <string name="strSave">保存</string>
     <string name="strAdd">添加</string>
@@ -19,6 +22,4 @@
     <string name="strRemove">删除</string>
     <string name="strClear">清除</string>
     <string name="strRefresh">刷新</string>
-    <string name="strGetCK">获取CK</string>
-    <string name="strQl">青龙</string>
 </resources>

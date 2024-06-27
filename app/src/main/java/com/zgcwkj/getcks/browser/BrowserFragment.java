@@ -64,6 +64,9 @@ public class BrowserFragment extends Fragment {
             return true;
         } else if (id == R.id.browser_btnRefresh) {//刷新按钮
             var mWebview = (WebView) view.findViewById(R.id.my_webview);
+            mWebview.clearHistory();//清除历史数据
+            mWebview.clearFormData();//清除表单数据
+            mWebview.clearCache(true);//清除缓存数据
             var data = getOneData();
             mWebview.loadUrl(data.getWeburl());
             return true;
@@ -77,9 +80,10 @@ public class BrowserFragment extends Fragment {
         super.onPause();
     }
 
+    //获取第一条数据
     private WebData getOneData() {
         var data = SqliteHelp.GetWebData();
-        if (data.getWeburl().equals("")) {
+        if (data.getWeburl().isEmpty()) {
             var url = "http://zgcwkj.cn/";
             data.setWeburl(url);
             var id = "00000000-0000-0000-0000-000000000000";

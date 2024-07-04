@@ -52,6 +52,7 @@ public class WebQLDialog {
         tv_qlClientSecret.setText(data.getClientSecret());
         //按钮
         var btnOk = (Button) contentView.findViewById(R.id.web_inputData_btnQlOk);
+        var btnClear = (Button) contentView.findViewById(R.id.web_inputData_btnQlClear);
         var btnCancel = (Button) contentView.findViewById(R.id.web_inputData_btnQlCancel);
         //通过AlertDialog.Builder这个类来实例化我们的一个AlertDialog的对象
         var builder = new AlertDialog.Builder(mContext);
@@ -72,6 +73,16 @@ public class WebQLDialog {
                 QLongHelp.setData(mContext, data);
                 isOK = true;
             }
+            //发送消息
+            var iMsg = handler.obtainMessage();
+            iMsg.what = isOK ? 5 : 0;
+            handler.sendMessage(iMsg);
+        });
+        //清空按钮事件
+        btnClear.setOnClickListener(arg -> {
+            loading.show();
+            //清空数据
+            var isOK = QLongHelp.clearData(mContext);
             //发送消息
             var iMsg = handler.obtainMessage();
             iMsg.what = isOK ? 5 : 0;

@@ -92,12 +92,19 @@
                 android:text="@string/strCancel" />
 
             <Button
+                android:id="@+id/web_inputData_btnQlClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorRed"
+                android:text="@string/strClear" />
+
+            <Button
                 android:id="@+id/web_inputData_btnQlOk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="@string/strOk"
-                android:textColor="@color/colorRed" />
+                android:textColor="@color/colorBlue"
+                android:text="@string/strOk" />
         </LinearLayout>
 
     </LinearLayout>

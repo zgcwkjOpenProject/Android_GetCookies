@@ -50,6 +50,13 @@ public class QLongHelp {
         return true;
     }
 
+    //清空青龙配置
+    public static boolean clearData(Context context) {
+        var dataPath = CommonHelp.getDataPath(context);
+        var file = new File(dataPath + "/qlData.json");
+        return file.delete();
+    }
+
     //保存到青龙平台
     public static void saveCookie(Context context, QLData qlData, String ck, String remark) {
         new Thread(() -> {

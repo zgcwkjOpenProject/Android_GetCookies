@@ -40,6 +40,7 @@ if ($requestMethod == 'GET') {
         // echo 'remarks2>'.$inputJson[0]->remarks;
         if ($envData['remarks'] == $inputJson[0]->remarks) {
             $inputJson[0]->id = $envData['id'];
+            $inputJson[0]->name = $envData['name'];
             $isUpdate = true;
         }
     }

@@ -6,6 +6,12 @@ public class QLData {
     private String clientId;
     private String clientSecret;
 
+    public QLData() {
+        weburl = "";
+        clientId = "";
+        clientSecret = "";
+    }
+
     public String getWeburl() {
         return weburl;
     }

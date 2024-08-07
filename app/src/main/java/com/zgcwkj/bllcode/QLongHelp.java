@@ -76,7 +76,8 @@ public class QLongHelp {
             var envList = data2.getArray("data");
             for (var i = 0; i < envList.size(); i++) {
                 var envData = envList.getMapper(i);
-                if (envData.getString("remarks").equals(remark)) {
+                var remarks = envData.getString("remarks");
+                if (remarks != null && remarks.equals(remark)) {
                     envId = envData.getInt("id");
                     envName = envData.getString("name");
                     break;

@@ -22,17 +22,26 @@ public class CookieHep {
         //准备数据
         var getCookieKey = data.getCookiekey();
         if (!getCookieKey.equals("")) {
-            cookieStr = "";
+            var cookieStrBuilder = new StringBuilder();
+            //要取出匹配Cookie的值
             var cookieKeys = getCookieKey.split(";");
-            for (var item : cookies) {
-                if (item.isEmpty()) continue;
-                for (var cookieKey : cookieKeys) {
-                    if (cookieKey.isEmpty()) continue;
+            for (var cookieKey : cookieKeys) {//要匹配的Key
+                if (cookieKey.isEmpty()) continue;
+                var matched = false;//记录是否被匹配到
+                for (var item : cookies) {//存储的CK
+                    if (item.isEmpty()) continue;
                     if (item.contains(cookieKey)) {
-                        cookieStr += item + ";";
+                        cookieStrBuilder.append(item).append(";");
+                        matched = true;
+                        break;
                     }
                 }
+                //匹配不到时，直接存储到要推送的记录里
+                if (!matched) {
+                    cookieStrBuilder.append(cookieKey).append(";");
+                }
             }
+            cookieStr = cookieStrBuilder.toString();
         }
         //清理两端空格
         cookieStr = cookieStr.trim();

@@ -127,13 +127,17 @@ public class SqliteHelp extends SQLiteOpenHelper {
         db.execSQL(sql, new Object[]{data1.getId(), data1.getWeburl(), data1.getCookie(), data1.getCookiekey(), data1.getRemark(), data1.getIsselect()});
         //默认数据
         var id2 = UUID.randomUUID().toString();
-        var data2 = new WebData(false, "https://plogin.m.jd.com/login/login", "", "pt_pin;pt_key;", "京东", id2);
+        var data2 = new WebData(false, "https://plogin.m.jd.com/login/login", "", "pt_pin;pt_key;", "京东CK", id2);
         sql = "insert into web_data(id,weburl,cookie,cookiekey,remark,isselect) values(@id,@weburl,@cookie,@cookiekey,@remark,@isselect)";
         db.execSQL(sql, new Object[]{data2.getId(), data2.getWeburl(), data2.getCookie(), data2.getCookiekey(), data2.getRemark(), data2.getIsselect()});
+        //默认数据
+        var id3 = UUID.randomUUID().toString();
+        var data3 = new WebData(false, "https://h5.ele.me/login", "", "", "饿了么CK", id3);
+        sql = "insert into web_data(id,weburl,cookie,cookiekey,remark,isselect) values(@id,@weburl,@cookie,@cookiekey,@remark,@isselect)";
+        db.execSQL(sql, new Object[]{data3.getId(), data3.getWeburl(), data3.getCookie(), data3.getCookiekey(), data3.getRemark(), data3.getIsselect()});
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 }

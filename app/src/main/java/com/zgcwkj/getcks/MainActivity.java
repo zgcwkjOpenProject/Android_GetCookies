@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         SqliteHelp.getDb(this);
         //
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_main);
+        setContentView(R.layout.activity_main);
         //
         var navView = (BottomNavigationView) findViewById(R.id.nav_view);
         //将每个菜单ID作为一组ID传递，因为每个菜单应被视为顶级目的地

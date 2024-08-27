@@ -2,13 +2,13 @@
 agp = "8.3.1"
 material = "1.10.0"
 navigationFragment = "2.7.7"
-okhttpsGson = "3.5.3"
+okhttpsGson = "4.0.2"
 
 [libraries]
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationFragment" }
 navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigationFragment" }
-okhttps-gson = { module = "com.ejlchina:okhttps-gson", version.ref = "okhttpsGson" }
+okhttps-gson = { module = "cn.zhxu:okhttps-gson", version.ref = "okhttpsGson" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

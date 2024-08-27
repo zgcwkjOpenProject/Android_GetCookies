@@ -2,9 +2,9 @@ package com.zgcwkj.bllcode;
 
 import android.content.Context;
 
-import com.ejlchina.okhttps.HTTP;
-import com.ejlchina.okhttps.OkHttps;
-import com.ejlchina.okhttps.gson.GsonMsgConvertor;
+import cn.zhxu.okhttps.HTTP;
+import cn.zhxu.okhttps.OkHttps;
+import cn.zhxu.okhttps.gson.GsonMsgConvertor;
 import com.google.gson.Gson;
 import com.zgcwkj.models.QLData;
 

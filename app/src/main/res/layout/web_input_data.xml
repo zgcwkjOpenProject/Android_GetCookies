@@ -39,6 +39,7 @@
                 android:id="@+id/web_inputData_weburl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/strWebUrlHint"
                 android:maxLines="5"
                 android:minLines="1" />
         </LinearLayout>
@@ -57,6 +58,7 @@
                 android:id="@+id/web_inputData_cookiekey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/strCookieKeyHint"
                 android:maxLines="5"
                 android:minLines="1" />
         </LinearLayout>
@@ -75,6 +77,7 @@
                 android:id="@+id/web_inputData_cookie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/strCookieHint"
                 android:maxLines="5"
                 android:minLines="1" />
         </LinearLayout>
@@ -93,6 +96,7 @@
                 android:id="@+id/web_inputData_remark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/strRemarkHint"
                 android:maxLines="5"
                 android:minLines="1" />
         </LinearLayout>

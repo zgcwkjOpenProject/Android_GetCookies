@@ -17,20 +17,20 @@ import androidx.lifecycle.ViewModelProvider;
 import com.zgcwkj.bllcode.DialogLoading;
 import com.zgcwkj.bllcode.SqliteHelp;
 import com.zgcwkj.getcks.R;
+import com.zgcwkj.getcks.StaticObj;
+import com.zgcwkj.getcks.dialogs.QLConfigDialog;
+import com.zgcwkj.getcks.dialogs.WebDataDialog;
 
 public class WebFragment extends Fragment {
-    public static DialogLoading dialogLoading;//加载弹窗
-    public static WebDataDialog dialogInput;//输入信息弹窗
-    public static WebQLDialog dialogInputQl;//输入信息弹窗2
+    public static WebHandler handler;//消息传递
     public WebViewModel viewModel;//页面模型
-    public WebHandler handler;//消息传递
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        var context = this.getContext();
         //传递消息
         handler = new WebHandler(Looper.myLooper(), this);
         //视图模型
         viewModel = new ViewModelProvider(this).get(WebViewModel.class);
-        viewModel.set(handler);
         //视图
         var view = inflater.inflate(R.layout.fragment_web, container, false);
         //加载列表数据
@@ -53,14 +53,14 @@ public class WebFragment extends Fragment {
         var context = getContext();
         var id = item.getItemId();
         if (id == R.id.web_btnAdd) {//添加按钮
-            dialogLoading = DialogLoading.build(context);
-            dialogInput = WebDataDialog.build(context, handler, dialogLoading);
-            dialogInput.show();
+            StaticObj.dialogLoading = DialogLoading.build(context);
+            StaticObj.dialogInput = WebDataDialog.build(context, StaticObj.dialogLoading);
+            StaticObj.dialogInput.show(handler);
             return true;
         } else if (id == R.id.web_btnQl) {//配置青龙
-            dialogLoading = DialogLoading.build(context);
-            dialogInputQl = WebQLDialog.build(context, handler, dialogLoading);
-            dialogInputQl.show();
+            StaticObj.dialogLoading = DialogLoading.build(context);
+            StaticObj.dialogInputQl = QLConfigDialog.build(context, StaticObj.dialogLoading);
+            StaticObj.dialogInputQl.show(handler);
             return true;
         }
         //其它让基类来处理

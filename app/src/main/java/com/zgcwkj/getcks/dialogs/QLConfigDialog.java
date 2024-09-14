@@ -1,7 +1,8 @@
-package com.zgcwkj.getcks.web;
+package com.zgcwkj.getcks.dialogs;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,26 +11,20 @@ import com.zgcwkj.bllcode.DialogLoading;
 import com.zgcwkj.bllcode.QLongHelp;
 import com.zgcwkj.getcks.R;
 
-public class WebQLDialog {
-    //上下文
-    private Context mContext;
-    //加载弹窗
-    private DialogLoading loading;
-    //消息对象
-    private WebHandler handler;
-    //弹窗
-    private AlertDialog dialog;
+public class QLConfigDialog {
+    private Context mContext;//上下文
+    private DialogLoading loading;//加载弹窗
+    private AlertDialog dialog;//弹窗
 
-    private WebQLDialog() {
+    private QLConfigDialog() {
     }
 
     /**
      * 获取一个单例
      */
-    public static WebQLDialog build(Context mContext, WebHandler handler, DialogLoading dialogLoading) {
-        var dialogInput = new WebQLDialog();
+    public static QLConfigDialog build(Context mContext, DialogLoading dialogLoading) {
+        var dialogInput = new QLConfigDialog();
         dialogInput.mContext = mContext;
-        dialogInput.handler = handler;
         dialogInput.loading = dialogLoading;
         return dialogInput;
     }
@@ -37,7 +32,7 @@ public class WebQLDialog {
     /**
      * 显示
      */
-    public void show() {
+    public void show(Handler handler) {
         var data = QLongHelp.getData(mContext);
         //加载布局
         final var contentView = View.inflate(mContext, R.layout.web_input_qldata, null);

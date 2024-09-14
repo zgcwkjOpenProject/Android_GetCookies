@@ -114,6 +114,13 @@ public class SqliteHelp extends SQLiteOpenHelper {
         return cursor.getCount() > 0;
     }
 
+    //初始化数据时创建数据
+    public static void initDBData(WebData data, SQLiteDatabase db) {
+        var sql = "insert into web_data(id,weburl,cookie,cookiekey,remark,isselect) values(@id,@weburl,@cookie,@cookiekey,@remark,@isselect)";
+        var id = UUID.randomUUID().toString();
+        db.execSQL(sql, new Object[]{id, data.getWeburl(), data.getCookie(), data.getCookiekey(), data.getRemark(), data.getIsselect()});
+    }
+
     //初始化数据库
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -121,20 +128,17 @@ public class SqliteHelp extends SQLiteOpenHelper {
         var sql = "CREATE TABLE web_data (id TEXT PRIMARY KEY,weburl TEXT,cookie TEXT,cookiekey TEXT,remark TEXT,isselect BOOLEAN);";
         db.execSQL(sql);
         //默认数据
-        var id1 = UUID.randomUUID().toString();
-        var data1 = new WebData(true, "http://zgcwkj.cn", "", "ck1;ck2;", "示例", id1);
-        sql = "insert into web_data(id,weburl,cookie,cookiekey,remark,isselect) values(@id,@weburl,@cookie,@cookiekey,@remark,@isselect)";
-        db.execSQL(sql, new Object[]{data1.getId(), data1.getWeburl(), data1.getCookie(), data1.getCookiekey(), data1.getRemark(), data1.getIsselect()});
+        var data1 = new WebData(true, "http://zgcwkj.cn", "", "ck1;ck2;", "示例");
+        initDBData(data1, db);
         //默认数据
-        var id2 = UUID.randomUUID().toString();
-        var data2 = new WebData(false, "https://plogin.m.jd.com/login/login", "", "pt_pin;pt_key;", "京东CK", id2);
-        sql = "insert into web_data(id,weburl,cookie,cookiekey,remark,isselect) values(@id,@weburl,@cookie,@cookiekey,@remark,@isselect)";
-        db.execSQL(sql, new Object[]{data2.getId(), data2.getWeburl(), data2.getCookie(), data2.getCookiekey(), data2.getRemark(), data2.getIsselect()});
+        var data2 = new WebData(false, "https://github.com/zgcwkjOpenProject/Android_GetCookies", "", "", "程序源码");
+        initDBData(data2, db);
         //默认数据
-        var id3 = UUID.randomUUID().toString();
-        var data3 = new WebData(false, "https://h5.ele.me/login", "", "", "饿了么CK", id3);
-        sql = "insert into web_data(id,weburl,cookie,cookiekey,remark,isselect) values(@id,@weburl,@cookie,@cookiekey,@remark,@isselect)";
-        db.execSQL(sql, new Object[]{data3.getId(), data3.getWeburl(), data3.getCookie(), data3.getCookiekey(), data3.getRemark(), data3.getIsselect()});
+        var data3 = new WebData(false, "https://plogin.m.jd.com/login/login", "", "pt_pin;pt_key;", "京东CK");
+        initDBData(data3, db);
+        //默认数据
+        var data4 = new WebData(false, "https://h5.ele.me/login", "", "", "饿了么CK");
+        initDBData(data4, db);
     }
 
     @Override

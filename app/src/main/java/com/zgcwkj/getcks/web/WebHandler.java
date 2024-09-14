@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.zgcwkj.getcks.StaticObj;
+
 import java.lang.ref.WeakReference;
 
 public class WebHandler extends Handler {
@@ -21,17 +23,17 @@ public class WebHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
-        WebFragment nactivity = myActivity.get();
+        var nactivity = myActivity.get();
         if (nactivity == null) return;
         Context context = nactivity.getContext();
-
-        WebFragment.dialogLoading.close();
+        //
+        StaticObj.dialogLoading.close();
         switch (msg.what) {
             case 0:
                 Toast.makeText(context, "保存失败", Toast.LENGTH_SHORT).show();
                 break;
             case 1:
-                WebFragment.dialogInput.close();//关闭对话框
+                StaticObj.dialogInput.close();//关闭对话框
                 nactivity.LoadDataListView(nactivity.getView());//加载列表数据
                 Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
                 break;
@@ -43,7 +45,7 @@ public class WebHandler extends Handler {
                 Toast.makeText(context, "选择成功", Toast.LENGTH_SHORT).show();
                 break;
             case 5:
-                WebFragment.dialogInputQl.close();//关闭对话框
+                StaticObj.dialogInputQl.close();//关闭对话框
                 nactivity.LoadDataListView(nactivity.getView());//加载列表数据
                 Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show();
                 break;

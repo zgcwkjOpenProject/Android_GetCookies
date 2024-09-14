@@ -9,9 +9,13 @@
     <!--输入框-->
     <string name="strAddWeb">添加新的网站（相同网址时，共享身份）</string>
     <string name="strWebUrl">网站地址：</string>
+    <string name="strWebUrlHint">输入网站地址</string>
     <string name="strCookieKey">获取CK键：</string>
+    <string name="strCookieKeyHint">未匹配的值将加到环境变量中</string>
     <string name="strCookie">匹配CK值：</string>
+    <string name="strCookieHint">匹配结果预览</string>
     <string name="strRemark">备 注：</string>
+    <string name="strRemarkHint">不能为空，通过备注匹配平台数据</string>
     <string name="strConfigQL">配置青龙</string>
     <string name="strConfigQlUrl">青龙地址：</string>
     <!--普通字符-->

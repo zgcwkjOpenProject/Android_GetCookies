@@ -2,6 +2,7 @@ package com.zgcwkj.getcks.web;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +16,17 @@ import com.zgcwkj.bllcode.CookieHep;
 import com.zgcwkj.bllcode.DialogLoading;
 import com.zgcwkj.bllcode.SqliteHelp;
 import com.zgcwkj.getcks.R;
+import com.zgcwkj.getcks.StaticObj;
+import com.zgcwkj.getcks.dialogs.WebDataDialog;
 import com.zgcwkj.models.WebData;
 
 import java.util.List;
 
 public class WebDataAdapter extends ArrayAdapter<WebData> {
-    //上下文
-    private final WebFragment myFragment;
-    //消息对象
-    private final WebHandler handler;
+    private final WebFragment myFragment;//上下文
+    private Handler handler;//上下文
 
-    public WebDataAdapter(WebFragment serverFragment, int textViewResourceID, List<WebData> objects, WebHandler handler) {
+    public WebDataAdapter(WebFragment serverFragment, int textViewResourceID, List<WebData> objects, Handler handler) {
         super(serverFragment.getContext(), textViewResourceID, objects);
         this.myFragment = serverFragment;
         this.handler = handler;
@@ -69,8 +70,8 @@ public class WebDataAdapter extends ArrayAdapter<WebData> {
     public void onClickListview(View view1, WebData data) {
         var view = myFragment.getView();
         var context = myFragment.getContext();
-        WebFragment.dialogLoading = DialogLoading.build(context);
-        WebFragment.dialogLoading.show();
+        StaticObj.dialogLoading = DialogLoading.build(context);
+        StaticObj.dialogLoading.show();
         CookieHep.setCookie(context, data);//设置CK
         //反馈消息至界面
         Message iMsg = handler.obtainMessage();
@@ -87,9 +88,9 @@ public class WebDataAdapter extends ArrayAdapter<WebData> {
     private void onClickEdit(View view1, WebData data) {
         var view = myFragment.getView();
         var context = myFragment.getContext();
-        WebFragment.dialogLoading = DialogLoading.build(context);
-        WebFragment.dialogInput = WebDataDialog.build(context, handler, WebFragment.dialogLoading);
-        WebFragment.dialogInput.show(data);
+        StaticObj.dialogLoading = DialogLoading.build(context);
+        StaticObj.dialogInput = WebDataDialog.build(context, StaticObj.dialogLoading);
+        StaticObj.dialogInput.show(data, handler);
     }
 
     /**

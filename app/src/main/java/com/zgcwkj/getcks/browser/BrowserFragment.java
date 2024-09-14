@@ -1,6 +1,7 @@
 package com.zgcwkj.getcks.browser;
 
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,19 +16,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.zgcwkj.bllcode.CookieHep;
-import com.zgcwkj.bllcode.QLongHelp;
+import com.zgcwkj.bllcode.DialogLoading;
 import com.zgcwkj.bllcode.SqliteHelp;
 import com.zgcwkj.getcks.R;
+import com.zgcwkj.getcks.StaticObj;
 import com.zgcwkj.models.WebData;
 
 public class BrowserFragment extends Fragment {
+    public static BrowserHandler handler;//消息传递
     public BrowserViewModel viewModel;//页面模型
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        var context = this.getContext();
+        //传递消息
+        handler = new BrowserHandler(Looper.myLooper(), this);
         //视图模型
         viewModel = new ViewModelProvider(this).get(BrowserViewModel.class);
+        //视图
         var view = inflater.inflate(R.layout.fragment_browser, container, false);
-        var context = view.getContext();
         //浏览器
         var mWebview = (WebView) view.findViewById(R.id.my_webview);
         mWebview.setWebViewClient(new WebViewClient());//不跳转浏览器
@@ -60,7 +66,10 @@ public class BrowserFragment extends Fragment {
         var context = view.getContext();
         var id = item.getItemId();
         if (id == R.id.browser_btnGetCK) {//获取按钮
-            CookieHep.getCookie(context, null);
+            //显示出该对话框
+            StaticObj.dialogLoading = DialogLoading.build(context);
+            StaticObj.dialogLoading.show();
+            CookieHep.getCookie(context, null, handler);
             return true;
         } else if (id == R.id.browser_btnRefresh) {//刷新按钮
             var mWebview = (WebView) view.findViewById(R.id.my_webview);

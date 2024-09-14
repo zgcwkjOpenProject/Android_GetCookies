@@ -1,14 +1,16 @@
 package com.zgcwkj.bllcode;
 
 import android.content.Context;
+import android.os.Handler;
 import android.webkit.CookieManager;
 import android.widget.Toast;
 
+import com.zgcwkj.getcks.StaticObj;
 import com.zgcwkj.models.WebData;
 
 public class CookieHep {
     //获取 Cookie
-    public static String getCookie(Context context, WebData data) {
+    public static String getCookie(Context context, WebData data, Handler handler) {
         var isCopy = false;
         if (data == null || data.getId().isEmpty()) {
             isCopy = true;
@@ -17,7 +19,11 @@ public class CookieHep {
         var cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         var cookieStr = cookieManager.getCookie(data.getWeburl());
-        if (cookieStr == null) return "";
+        if (cookieStr == null) {
+            StaticObj.dialogLoading.close();//关闭加载弹窗
+            Toast.makeText(context, "内容为空", Toast.LENGTH_SHORT).show();
+            return "";
+        }
         var cookies = cookieStr.split(";");
         //准备数据
         var getCookieKey = data.getCookiekey();
@@ -52,14 +58,13 @@ public class CookieHep {
                 var qlData = QLongHelp.getData(context);
                 if (qlData.getWeburl().isEmpty()) {
                     //传到剪切板
-                    CommonHelp.copyToClipboard(context, cookieStr);
-                    Toast.makeText(context, "内容已复制到剪切板", Toast.LENGTH_SHORT).show();
+                    CommonHelp.copyToClipboard(context, cookieStr, handler);
                 } else {
                     //传到青龙
-                    QLongHelp.saveCookie(context, qlData, cookieStr, data.getRemark());
-                    Toast.makeText(context, "内容已传输到青龙", Toast.LENGTH_SHORT).show();
+                    QLongHelp.saveCookie(context, qlData, cookieStr, data.getRemark(), handler);
                 }
             } else {
+                StaticObj.dialogLoading.close();//关闭加载弹窗
                 Toast.makeText(context, "内容为空", Toast.LENGTH_SHORT).show();
             }
         }

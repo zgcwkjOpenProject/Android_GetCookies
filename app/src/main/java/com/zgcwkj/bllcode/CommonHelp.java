@@ -3,6 +3,7 @@ package com.zgcwkj.bllcode;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.os.Handler;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,11 +13,17 @@ import java.io.IOException;
 public class CommonHelp {
 
     //复制到剪切板
-    public static void copyToClipboard(Context context, String text) {
+    public static void copyToClipboard(Context context, String text, Handler handler) {
         text = text.trim();
         var clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         var clip = ClipData.newPlainText("label", text);
         clipboard.setPrimaryClip(clip);
+        //发送消息
+        if (handler != null) {
+            var iMsg = handler.obtainMessage();
+            iMsg.what = 1;
+            handler.sendMessage(iMsg);
+        }
     }
 
     //获取Data目录

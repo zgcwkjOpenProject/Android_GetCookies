@@ -9,9 +9,13 @@
     <!--输入框-->
     <string name="strAddWeb">Add Web</string>
     <string name="strWebUrl">Web Url:</string>
-    <string name="strCookieKey">:</string>
+    <string name="strWebUrlHint">Enter the website address</string>
+    <string name="strCookieKey">CookieKey:</string>
+    <string name="strCookieKeyHint">Unmatched values will be added to the environment variable</string>
     <string name="strCookie">Cookie:</string>
+    <string name="strCookieHint">Preview matching results</string>
     <string name="strRemark">Remark:</string>
+    <string name="strRemarkHint">Cannot be empty, match data through remarks</string>
     <string name="strConfigQL">ConfigQL</string>
     <string name="strConfigQlUrl">ConfigQlUrl:</string>
     <!--普通字符-->

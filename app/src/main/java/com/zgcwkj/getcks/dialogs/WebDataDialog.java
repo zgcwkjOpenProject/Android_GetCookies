@@ -1,7 +1,8 @@
-package com.zgcwkj.getcks.web;
+package com.zgcwkj.getcks.dialogs;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,14 +14,9 @@ import com.zgcwkj.getcks.R;
 import com.zgcwkj.models.WebData;
 
 public class WebDataDialog {
-    //上下文
-    private Context mContext;
-    //加载弹窗
-    private DialogLoading loading;
-    //消息对象
-    private WebHandler handler;
-    //弹窗
-    private AlertDialog dialog;
+    private Context mContext;//上下文
+    private DialogLoading loading;//加载弹窗
+    private AlertDialog dialog;//弹窗
 
     private WebDataDialog() {
     }
@@ -28,10 +24,9 @@ public class WebDataDialog {
     /**
      * 获取一个单例
      */
-    public static WebDataDialog build(Context mContext, WebHandler handler, DialogLoading dialogLoading) {
+    public static WebDataDialog build(Context mContext, DialogLoading dialogLoading) {
         var dialogInput = new WebDataDialog();
         dialogInput.mContext = mContext;
-        dialogInput.handler = handler;
         dialogInput.loading = dialogLoading;
         return dialogInput;
     }
@@ -39,15 +34,15 @@ public class WebDataDialog {
     /**
      * 显示
      */
-    public void show() {
+    public void show(Handler handler) {
         var data = new WebData(false, "", "", "", "", "");
-        show(data);
+        show(data, handler);
     }
 
     /**
      * 显示
      */
-    public void show(WebData data) {
+    public void show(WebData data, Handler handler) {
         //加载布局
         final var contentView = View.inflate(mContext, R.layout.web_input_data, null);
         var context = contentView.getContext();
@@ -61,7 +56,7 @@ public class WebDataDialog {
         if (!data.getWeburl().isEmpty() && data.getIsselect()) {
             //CK
             var tv_cookie = (TextView) contentView.findViewById(R.id.web_inputData_cookie);
-            var getCKK = CookieHep.getCookie(mContext, data);
+            var getCKK = CookieHep.getCookie(mContext, data, null);
             tv_cookie.setText(getCKK);
         }
         //备注
@@ -82,7 +77,8 @@ public class WebDataDialog {
         btnOk.setOnClickListener(arg -> {
             var isOK = false;
             loading.show();
-            if (!tv_weburl.getText().toString().trim().isEmpty()) {
+            if (!tv_weburl.getText().toString().trim().isEmpty()
+                    && !tv_remark.getText().toString().isEmpty()) {
                 data.setWeburl(tv_weburl.getText().toString());
                 data.setCookiekey(tv_cookiekey.getText().toString());
                 data.setRemark(tv_remark.getText().toString());

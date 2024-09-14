@@ -50,12 +50,12 @@ public class DialogLoading {
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         llParam.gravity = Gravity.CENTER;
         ll.setLayoutParams(llParam);
-
+        //
         var progressBar = new ProgressBar(mContext);
         progressBar.setIndeterminate(true);
         progressBar.setPadding(0, 0, llPadding, 0);
         progressBar.setLayoutParams(llParam);
-
+        //
         llParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         llParam.gravity = Gravity.CENTER;
@@ -64,10 +64,10 @@ public class DialogLoading {
         tvText.setTextColor(Color.parseColor("#000000"));
         tvText.setTextSize(20);
         tvText.setLayoutParams(llParam);
-
+        //
         ll.addView(progressBar);
         ll.addView(tvText);
-
+        //
         var builder = new AlertDialog.Builder(mContext);
         builder.setCancelable(true);
         builder.setView(ll);
@@ -75,7 +75,7 @@ public class DialogLoading {
         builder.setOnKeyListener((dialogInterface, keyCode, keyEvent) -> {
             return true;
         });
-
+        //
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();

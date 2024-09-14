@@ -3,7 +3,6 @@ package com.zgcwkj.getcks.web;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ import java.util.List;
 
 public class WebDataAdapter extends ArrayAdapter<WebData> {
     private final WebFragment myFragment;//上下文
-    private Handler handler;//上下文
+    private final Handler handler;//上下文
 
     public WebDataAdapter(WebFragment serverFragment, int textViewResourceID, List<WebData> objects, Handler handler) {
         super(serverFragment.getContext(), textViewResourceID, objects);
@@ -70,13 +69,11 @@ public class WebDataAdapter extends ArrayAdapter<WebData> {
     public void onClickListview(View view1, WebData data) {
         var view = myFragment.getView();
         var context = myFragment.getContext();
-        StaticObj.dialogLoading = DialogLoading.build(context);
-        StaticObj.dialogLoading.show();
         CookieHep.setCookie(context, data);//设置CK
         //反馈消息至界面
-        Message iMsg = handler.obtainMessage();
-        iMsg.what = 4;
-        handler.sendMessage(iMsg);
+        StaticObj.dialogLoading = DialogLoading.build(context);
+        StaticObj.dialogLoading.show();
+        StaticObj.sendMsg(handler, 4);
     }
 
     /**
@@ -88,8 +85,7 @@ public class WebDataAdapter extends ArrayAdapter<WebData> {
     private void onClickEdit(View view1, WebData data) {
         var view = myFragment.getView();
         var context = myFragment.getContext();
-        StaticObj.dialogLoading = DialogLoading.build(context);
-        StaticObj.dialogInput = WebDataDialog.build(context, StaticObj.dialogLoading);
+        StaticObj.dialogInput = WebDataDialog.build(context);
         StaticObj.dialogInput.show(data, handler);
     }
 

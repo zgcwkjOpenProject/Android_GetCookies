@@ -5,6 +5,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Handler;
 
+import com.zgcwkj.getcks.StaticObj;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -20,9 +22,7 @@ public class CommonHelp {
         clipboard.setPrimaryClip(clip);
         //发送消息
         if (handler != null) {
-            var iMsg = handler.obtainMessage();
-            iMsg.what = 1;
-            handler.sendMessage(iMsg);
+            StaticObj.sendMsg(handler, 1);
         }
     }
 

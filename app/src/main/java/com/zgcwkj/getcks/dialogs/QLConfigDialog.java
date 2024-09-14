@@ -7,13 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.zgcwkj.bllcode.DialogLoading;
 import com.zgcwkj.bllcode.QLongHelp;
 import com.zgcwkj.getcks.R;
+import com.zgcwkj.getcks.StaticObj;
 
 public class QLConfigDialog {
     private Context mContext;//上下文
-    private DialogLoading loading;//加载弹窗
     private AlertDialog dialog;//弹窗
 
     private QLConfigDialog() {
@@ -22,10 +21,9 @@ public class QLConfigDialog {
     /**
      * 获取一个单例
      */
-    public static QLConfigDialog build(Context mContext, DialogLoading dialogLoading) {
+    public static QLConfigDialog build(Context mContext) {
         var dialogInput = new QLConfigDialog();
         dialogInput.mContext = mContext;
-        dialogInput.loading = dialogLoading;
         return dialogInput;
     }
 
@@ -60,7 +58,7 @@ public class QLConfigDialog {
         //确定按钮事件
         btnOk.setOnClickListener(arg -> {
             var isOK = false;
-            loading.show();
+            StaticObj.dialogLoading.show();
             if (!tv_qlurl.getText().toString().trim().isEmpty()) {
                 data.setWeburl(tv_qlurl.getText().toString());
                 data.setClientId(tv_qlClientId.getText().toString());
@@ -69,19 +67,18 @@ public class QLConfigDialog {
                 isOK = true;
             }
             //发送消息
-            var iMsg = handler.obtainMessage();
-            iMsg.what = isOK ? 5 : 0;
-            handler.sendMessage(iMsg);
+            StaticObj.sendMsg(handler, (isOK ? 5 : 0));
         });
         //清空按钮事件
         btnClear.setOnClickListener(arg -> {
-            loading.show();
+            StaticObj.dialogLoading.show();
             //清空数据
             var isOK = QLongHelp.clearData(mContext);
+            isOK = true;
             //发送消息
-            var iMsg = handler.obtainMessage();
-            iMsg.what = isOK ? 5 : 0;
-            handler.sendMessage(iMsg);
+            StaticObj.sendMsg(handler, (isOK ? 5 : 0));
+            //关闭弹窗
+            close();
         });
         //取消按钮事件
         btnCancel.setOnClickListener(arg -> {

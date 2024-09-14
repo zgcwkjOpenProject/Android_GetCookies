@@ -19,11 +19,8 @@ public class CookieHep {
         var cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         var cookieStr = cookieManager.getCookie(data.getWeburl());
-        if (cookieStr == null) {
-            StaticObj.dialogLoading.close();//关闭加载弹窗
-            Toast.makeText(context, "内容为空", Toast.LENGTH_SHORT).show();
-            return "";
-        }
+        if (cookieStr == null) cookieStr = "";
+        if (!isCopy && cookieStr.isEmpty()) return "";
         var cookies = cookieStr.split(";");
         //准备数据
         var getCookieKey = data.getCookiekey();
@@ -55,6 +52,9 @@ public class CookieHep {
         if (isCopy) {
             //将内容复制到剪切板
             if (!cookieStr.isEmpty()) {
+                //显示
+                StaticObj.dialogLoading = DialogLoading.build(context);
+                StaticObj.dialogLoading.show();
                 var qlData = QLongHelp.getData(context);
                 if (qlData.getWeburl().isEmpty()) {
                     //传到剪切板
@@ -64,7 +64,6 @@ public class CookieHep {
                     QLongHelp.saveCookie(context, qlData, cookieStr, data.getRemark(), handler);
                 }
             } else {
-                StaticObj.dialogLoading.close();//关闭加载弹窗
                 Toast.makeText(context, "内容为空", Toast.LENGTH_SHORT).show();
             }
         }

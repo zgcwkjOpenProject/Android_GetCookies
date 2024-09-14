@@ -11,37 +11,30 @@ import com.zgcwkj.bllcode.CookieHep;
 import com.zgcwkj.bllcode.DialogLoading;
 import com.zgcwkj.bllcode.SqliteHelp;
 import com.zgcwkj.getcks.R;
+import com.zgcwkj.getcks.StaticObj;
 import com.zgcwkj.models.WebData;
 
 public class WebDataDialog {
     private Context mContext;//上下文
-    private DialogLoading loading;//加载弹窗
     private AlertDialog dialog;//弹窗
 
     private WebDataDialog() {
     }
 
-    /**
-     * 获取一个单例
-     */
-    public static WebDataDialog build(Context mContext, DialogLoading dialogLoading) {
+    //获取一个单例
+    public static WebDataDialog build(Context mContext) {
         var dialogInput = new WebDataDialog();
         dialogInput.mContext = mContext;
-        dialogInput.loading = dialogLoading;
         return dialogInput;
     }
 
-    /**
-     * 显示
-     */
+    //显示
     public void show(Handler handler) {
         var data = new WebData(false, "", "", "", "", "");
         show(data, handler);
     }
 
-    /**
-     * 显示
-     */
+    //显示
     public void show(WebData data, Handler handler) {
         //加载布局
         final var contentView = View.inflate(mContext, R.layout.web_input_data, null);
@@ -76,7 +69,8 @@ public class WebDataDialog {
         //确定按钮事件
         btnOk.setOnClickListener(arg -> {
             var isOK = false;
-            loading.show();
+            StaticObj.dialogLoading = DialogLoading.build(context);
+            StaticObj.dialogLoading.show();
             if (!tv_weburl.getText().toString().trim().isEmpty()
                     && !tv_remark.getText().toString().isEmpty()) {
                 data.setWeburl(tv_weburl.getText().toString());
@@ -86,9 +80,7 @@ public class WebDataDialog {
                 isOK = true;
             }
             //发送消息
-            var iMsg = handler.obtainMessage();
-            iMsg.what = isOK ? 1 : 0;
-            handler.sendMessage(iMsg);
+            StaticObj.sendMsg(handler, (isOK ? 1 : 0));
         });
         //取消按钮事件
         btnCancel.setOnClickListener(arg -> {
@@ -96,9 +88,7 @@ public class WebDataDialog {
         });
     }
 
-    /**
-     * 关闭
-     */
+    //关闭
     public void close() {
         dialog.dismiss();
     }

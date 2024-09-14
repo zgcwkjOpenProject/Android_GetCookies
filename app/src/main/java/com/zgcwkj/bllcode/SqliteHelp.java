@@ -131,7 +131,7 @@ public class SqliteHelp extends SQLiteOpenHelper {
         var data1 = new WebData(true, "http://zgcwkj.cn", "", "ck1;ck2;", "示例");
         initDBData(data1, db);
         //默认数据
-        var data2 = new WebData(false, "https://github.com/zgcwkjOpenProject/Android_GetCookies", "", "", "程序源码");
+        var data2 = new WebData(false, "https://github.com/zgcwkjOpenProject/Android_GetCookies", "", "", "开源地址");
         initDBData(data2, db);
         //默认数据
         var data3 = new WebData(false, "https://plogin.m.jd.com/login/login", "", "pt_pin;pt_key;", "京东CK");

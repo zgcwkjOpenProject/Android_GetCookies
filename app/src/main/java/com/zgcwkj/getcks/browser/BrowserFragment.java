@@ -16,10 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.zgcwkj.bllcode.CookieHep;
-import com.zgcwkj.bllcode.DialogLoading;
 import com.zgcwkj.bllcode.SqliteHelp;
 import com.zgcwkj.getcks.R;
-import com.zgcwkj.getcks.StaticObj;
 import com.zgcwkj.models.WebData;
 
 public class BrowserFragment extends Fragment {
@@ -66,9 +64,6 @@ public class BrowserFragment extends Fragment {
         var context = view.getContext();
         var id = item.getItemId();
         if (id == R.id.browser_btnGetCK) {//获取按钮
-            //显示出该对话框
-            StaticObj.dialogLoading = DialogLoading.build(context);
-            StaticObj.dialogLoading.show();
             CookieHep.getCookie(context, null, handler);
             return true;
         } else if (id == R.id.browser_btnRefresh) {//刷新按钮

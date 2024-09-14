@@ -95,16 +95,16 @@
                 android:id="@+id/web_inputData_btnQlClear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorRed"
-                android:text="@string/strClear" />
+                android:text="@string/strClear"
+                android:textColor="@color/colorRed" />
 
             <Button
                 android:id="@+id/web_inputData_btnQlOk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:textColor="@color/colorBlue"
-                android:text="@string/strOk" />
+                android:text="@string/strOk"
+                android:textColor="@color/colorBlue" />
         </LinearLayout>
 
     </LinearLayout>

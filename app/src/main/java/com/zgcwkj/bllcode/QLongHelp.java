@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.google.gson.Gson;
+import com.zgcwkj.getcks.StaticObj;
 import com.zgcwkj.models.QLData;
 
 import java.io.BufferedReader;
@@ -105,9 +106,7 @@ public class QLongHelp {
             }
             //发送消息
             if (handler != null) {
-                var iMsg = handler.obtainMessage();
-                iMsg.what = msgWhat;
-                handler.sendMessage(iMsg);
+                StaticObj.sendMsg(handler, msgWhat);
             }
         }).start();
     }

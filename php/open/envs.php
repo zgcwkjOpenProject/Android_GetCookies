@@ -44,9 +44,19 @@ if ($requestMethod == 'GET') {
             $isUpdate = true;
         }
     }
+    //准备数据
+    $arrayID = array();
+    if ($isUpdate) {
+        array_push($arrayID, $inputJson[0]->id);
+        $inputJson = $inputJson[0];
+    }
     //更新到平台
-    if ($isUpdate) $inputJson = $inputJson[0];
     $saveResult = posturl($getEnvUrl, $inputJson, $token, $isUpdate);
+    ////启用环境变量
+    //if ($isUpdate) {
+    //    $envEnableUrl = "$serverUrl/open/envs/enable/";
+    //    $saveResult = posturl($envEnableUrl, $arrayID, $token, true);
+    //}
     echo json_encode($saveResult);
 }
 

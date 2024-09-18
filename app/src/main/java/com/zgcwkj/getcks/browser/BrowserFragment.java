@@ -33,19 +33,7 @@ public class BrowserFragment extends Fragment {
         //视图
         var view = inflater.inflate(R.layout.fragment_browser, container, false);
         //浏览器
-        var mWebview = (WebView) view.findViewById(R.id.my_webview);
-        mWebview.setWebViewClient(new WebViewClient());//不跳转浏览器
-        var settings = mWebview.getSettings();
-        settings.setJavaScriptCanOpenWindowsAutomatically(false);//禁用新窗口
-        settings.setJavaScriptEnabled(true);//允许执行js
-        settings.setLoadWithOverviewMode(true);//启用自适应屏幕
-        settings.setSupportZoom(false);//禁用缩放
-        settings.setBuiltInZoomControls(false);//禁用显示缩放按钮
-        settings.setUseWideViewPort(false);//禁用大视图模式
-        settings.setDatabaseEnabled(false);//是否使用缓存
-        settings.setDomStorageEnabled(true);//DOM存储
-        var data = getOneData();//打开网站
-        mWebview.loadUrl(data.getWeburl());
+        openWebUrl(view, false);
         //让系统知道有菜单项
         setHasOptionsMenu(true);
         //返回视图
@@ -67,12 +55,7 @@ public class BrowserFragment extends Fragment {
             CookieHep.getCookie(context, null, handler);
             return true;
         } else if (id == R.id.browser_btnRefresh) {//刷新按钮
-            var mWebview = (WebView) view.findViewById(R.id.my_webview);
-            mWebview.clearHistory();//清除历史数据
-            mWebview.clearFormData();//清除表单数据
-            mWebview.clearCache(true);//清除缓存数据
-            var data = getOneData();
-            mWebview.loadUrl(data.getWeburl());
+            openWebUrl(view, true);
             return true;
         }
         //其它让基类来处理
@@ -84,8 +67,8 @@ public class BrowserFragment extends Fragment {
         super.onPause();
     }
 
-    //获取第一条数据
-    private WebData getOneData() {
+    //打开网站（第一条数据）
+    private WebData openWebUrl(View view, boolean isLoad) {
         var data = SqliteHelp.GetWebData();
         if (data.getWeburl().isEmpty()) {
             var url = "http://zgcwkj.cn/";
@@ -93,6 +76,27 @@ public class BrowserFragment extends Fragment {
             var id = "00000000-0000-0000-0000-000000000000";
             data.setId(id);
         }
+        //浏览器
+        var mWebview = (WebView) view.findViewById(R.id.my_webview);
+        mWebview.setWebContentsDebuggingEnabled(true);//运行调试
+        //mWebview.setWebViewClient(new MyWebViewClient());
+        mWebview.setWebViewClient(new WebViewClient());//不跳转浏览器
+        if (isLoad == true) {
+            mWebview.clearHistory();//清除历史数据
+            mWebview.clearFormData();//清除表单数据
+            mWebview.clearCache(true);//清除缓存数据
+        }
+        var settings = mWebview.getSettings();
+        settings.setJavaScriptCanOpenWindowsAutomatically(false);//禁用新窗口
+        settings.setJavaScriptEnabled(true);//允许执行js
+        settings.setLoadWithOverviewMode(true);//启用自适应屏幕
+        settings.setSupportZoom(false);//禁用缩放
+        settings.setBuiltInZoomControls(false);//禁用显示缩放按钮
+        settings.setUseWideViewPort(false);//禁用大视图模式
+        settings.setDatabaseEnabled(false);//是否使用缓存
+        settings.setDomStorageEnabled(true);//DOM存储
+        //打开网站
+        mWebview.loadUrl(data.getWeburl());
         return data;
     }
 }

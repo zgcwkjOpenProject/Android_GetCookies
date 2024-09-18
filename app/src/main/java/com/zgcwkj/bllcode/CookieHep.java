@@ -16,11 +16,12 @@ public class CookieHep {
             isCopy = true;
             data = SqliteHelp.GetWebData();
         }
+        //浏览器的CK
         var cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         var cookieStr = cookieManager.getCookie(data.getWeburl());
         if (cookieStr == null) cookieStr = "";
-        if (!isCopy && cookieStr.isEmpty()) return "";
+        if (cookieStr.isEmpty() && !isCopy) return "";
         var cookies = cookieStr.split(";");
         //准备数据
         var getCookieKey = data.getCookiekey();
@@ -29,11 +30,14 @@ public class CookieHep {
             //要取出匹配Cookie的值
             var cookieKeys = getCookieKey.split(";");
             for (var cookieKey : cookieKeys) {//要匹配的Key
+                cookieKey = cookieKey.trim();//前后去空格
                 if (cookieKey.isEmpty()) continue;
                 var matched = false;//记录是否被匹配到
                 for (var item : cookies) {//存储的CK
+                    item = item.trim();//前后去空格
                     if (item.isEmpty()) continue;
-                    if (item.contains(cookieKey)) {
+                    var leftKey = item.split("=");
+                    if (leftKey.length > 0 && leftKey[0].equals(cookieKey)) {
                         cookieStrBuilder.append(item).append(";");
                         matched = true;
                         break;

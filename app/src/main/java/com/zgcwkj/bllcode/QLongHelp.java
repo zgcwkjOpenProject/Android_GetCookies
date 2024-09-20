@@ -70,12 +70,18 @@ public class QLongHelp {
                 var url = qlData.getWeburl() + "/open/auth/token?";
                 url += "client_id=" + qlData.getClientId() + "&client_secret=" + qlData.getClientSecret();
                 var data1 = http.sync(url).get().getBody().toMapper();
-                if (data1.getInt("code") != 200) return;
+                if (data1.getInt("code") != 200) {
+                    StaticObj.sendMsg(handler, 3);//推送失败
+                    return;
+                }
                 var token = data1.getMapper("data").getString("token");
                 //从记录中获取匹配备注的记录
                 url = qlData.getWeburl() + "/open/envs";
                 var data2 = http.sync(url).addHeader("Authorization", "Bearer " + token).get().getBody().toMapper();
-                if (data2.getInt("code") != 200) return;
+                if (data2.getInt("code") != 200) {
+                    StaticObj.sendMsg(handler, 3);//推送失败
+                    return;
+                }
                 var envId = 0;
                 var envName = "NotName";
                 var envList = data2.getArray("data");

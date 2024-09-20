@@ -99,6 +99,12 @@ public class QLongHelp {
                     var saveData = "{'value':'" + ck + "','name':'" + envName + "','remarks':'" + remark + "','id':" + envId + "}";
                     saveData = saveData.replaceAll("'", "\"");
                     var rdata = http.async(url).addHeader("Authorization", "Bearer " + token).bodyType(OkHttps.JSON).setBodyPara(saveData).put();
+                    //启用环境变量
+                    if (qlData.getAutoEnable()) {
+                        url = qlData.getWeburl() + "/open/envs/enable";
+                        var enableData = "[" + envId + "]";
+                        var r2data = http.async(url).addHeader("Authorization", "Bearer " + token).bodyType(OkHttps.JSON).setBodyPara(enableData).put();
+                    }
                 }
                 msgWhat = 4;//推送成功
             } catch (Exception ex) {

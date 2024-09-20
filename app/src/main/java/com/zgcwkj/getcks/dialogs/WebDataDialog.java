@@ -23,6 +23,7 @@ public class WebDataDialog {
 
     //获取一个单例
     public static WebDataDialog build(Context mContext) {
+        StaticObj.dialogLoading = DialogLoading.build(mContext);
         var dialogInput = new WebDataDialog();
         dialogInput.mContext = mContext;
         return dialogInput;
@@ -69,7 +70,6 @@ public class WebDataDialog {
         //确定按钮事件
         btnOk.setOnClickListener(arg -> {
             var isOK = false;
-            StaticObj.dialogLoading = DialogLoading.build(context);
             StaticObj.dialogLoading.show();
             if (!tv_weburl.getText().toString().trim().isEmpty()
                     && !tv_remark.getText().toString().isEmpty()) {

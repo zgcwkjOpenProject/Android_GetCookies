@@ -2,10 +2,22 @@
     <string name="appName">GetCK</string>
     <string name="appLoading">Loading...</string>
     <string name="strQl">QL</string>
-    <string name="strGetCK">GetCK</string>
+    <!--普通字符-->
+    <string name="strOk">OK</string>
+    <string name="strSave">Save</string>
+    <string name="strAdd">Add</string>
+    <string name="strCancel">Cancel</string>
+    <string name="strRemove">Delete</string>
+    <string name="strClear">Clear</string>
+    <string name="strRefresh">Refresh</string>
     <!--菜单-->
     <string name="menu_web">Web</string>
     <string name="menu_browser">Browser</string>
+    <string name="menu_configQl">ConfigQL</string>
+    <string name="menu_getCK">GetCK</string>
+    <string name="menu_getCK1">CopyCK</string>
+    <string name="menu_getCK2">PushCK</string>
+    <string name="menu_resetBrowser">ResetBrowser</string>
     <!--输入框-->
     <string name="strAddWeb">Add Web</string>
     <string name="strWebUrl">Web Url:</string>
@@ -16,14 +28,9 @@
     <string name="strCookieHint">Preview matching results</string>
     <string name="strRemark">Remark:</string>
     <string name="strRemarkHint">Cannot be empty, match data through remarks</string>
-    <string name="strConfigQL">ConfigQL</string>
+    <string name="strConfigQl">ConfigQL</string>
     <string name="strConfigQlUrl">ConfigQlUrl:</string>
-    <!--普通字符-->
-    <string name="strOk">OK</string>
-    <string name="strSave">Save</string>
-    <string name="strAdd">Add</string>
-    <string name="strCancel">Cancel</string>
-    <string name="strRemove">Delete</string>
-    <string name="strClear">Clear</string>
-    <string name="strRefresh">Refresh</string>
+    <string name="strConfigQlClientId">ClientId:</string>
+    <string name="strConfigQlClientSecret">ClientSecret:</string>
+    <string name="strConfigQlAutoEnable">AutoEnableEnv</string>
 </resources>

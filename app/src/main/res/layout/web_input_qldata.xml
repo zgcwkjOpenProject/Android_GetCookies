@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/strConfigQL"
+            android:text="@string/strConfigQl"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 
@@ -39,6 +39,7 @@
                 android:id="@+id/web_inputData_qlurl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Web Url"
                 android:maxLines="5"
                 android:minLines="1" />
         </LinearLayout>
@@ -51,12 +52,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="client_id：" />
+                android:text="@string/strConfigQlClientId" />
 
             <EditText
                 android:id="@+id/web_inputData_qlClientId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="ClientId"
                 android:maxLines="5"
                 android:minLines="1" />
         </LinearLayout>
@@ -69,14 +71,29 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="client_secret：" />
+                android:text="@string/strConfigQlClientSecret" />
 
             <EditText
                 android:id="@+id/web_inputData_qlClientSecret"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="ClientSecret"
                 android:maxLines="5"
                 android:minLines="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <Switch
+                android:id="@+id/web_inputData_qlAutoEnable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/strConfigQlAutoEnable" />
+
         </LinearLayout>
 
         <LinearLayout

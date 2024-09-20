@@ -5,8 +5,10 @@ import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.zgcwkj.bllcode.DialogLoading;
 import com.zgcwkj.bllcode.QLongHelp;
 import com.zgcwkj.getcks.R;
 import com.zgcwkj.getcks.StaticObj;
@@ -22,6 +24,7 @@ public class QLConfigDialog {
      * 获取一个单例
      */
     public static QLConfigDialog build(Context mContext) {
+        StaticObj.dialogLoading = DialogLoading.build(mContext);
         var dialogInput = new QLConfigDialog();
         dialogInput.mContext = mContext;
         return dialogInput;
@@ -34,15 +37,18 @@ public class QLConfigDialog {
         var data = QLongHelp.getData(mContext);
         //加载布局
         final var contentView = View.inflate(mContext, R.layout.web_input_qldata, null);
-        //Url
-        var tv_qlurl = (TextView) contentView.findViewById(R.id.web_inputData_qlurl);
-        tv_qlurl.setText(data.getWeburl());
-        //ClientId
-        var tv_qlClientId = (TextView) contentView.findViewById(R.id.web_inputData_qlClientId);
-        tv_qlClientId.setText(data.getClientId());
-        //ClientSecret
-        var tv_qlClientSecret = (TextView) contentView.findViewById(R.id.web_inputData_qlClientSecret);
-        tv_qlClientSecret.setText(data.getClientSecret());
+        //青龙平台地址
+        var qlurl = (TextView) contentView.findViewById(R.id.web_inputData_qlurl);
+        qlurl.setText(data.getWeburl());
+        //客户端ID
+        var qlClientId = (TextView) contentView.findViewById(R.id.web_inputData_qlClientId);
+        qlClientId.setText(data.getClientId());
+        //客户端密钥
+        var qlClientSecret = (TextView) contentView.findViewById(R.id.web_inputData_qlClientSecret);
+        qlClientSecret.setText(data.getClientSecret());
+        //自动启动变量
+        var qlAutoEnable = (Switch) contentView.findViewById(R.id.web_inputData_qlAutoEnable);
+        qlAutoEnable.setChecked(data.getAutoEnable());
         //按钮
         var btnOk = (Button) contentView.findViewById(R.id.web_inputData_btnQlOk);
         var btnClear = (Button) contentView.findViewById(R.id.web_inputData_btnQlClear);
@@ -59,10 +65,11 @@ public class QLConfigDialog {
         btnOk.setOnClickListener(arg -> {
             var isOK = false;
             StaticObj.dialogLoading.show();
-            if (!tv_qlurl.getText().toString().trim().isEmpty()) {
-                data.setWeburl(tv_qlurl.getText().toString());
-                data.setClientId(tv_qlClientId.getText().toString());
-                data.setClientSecret(tv_qlClientSecret.getText().toString());
+            if (!qlurl.getText().toString().trim().isEmpty()) {
+                data.setWeburl(qlurl.getText().toString());
+                data.setClientId(qlClientId.getText().toString());
+                data.setClientSecret(qlClientSecret.getText().toString());
+                data.setAutoEnable(qlAutoEnable.isChecked());
                 QLongHelp.setData(mContext, data);
                 isOK = true;
             }

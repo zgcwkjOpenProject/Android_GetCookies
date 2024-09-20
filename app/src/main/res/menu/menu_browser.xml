@@ -1,12 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/browser_btnRefresh"
-        android:icon="@android:drawable/ic_popup_sync"
-        android:title="@string/strRefresh"
+        android:id="@+id/browser_btnGetCK"
+        android:title="@string/menu_getCK"
         app:showAsAction="always" />
     <item
-        android:id="@+id/browser_btnGetCK"
-        android:title="@string/strGetCK"
-        app:showAsAction="always" />
+        android:id="@+id/web_btnResetBrowser"
+        android:title="@string/menu_resetBrowser" />
+    <item
+        android:id="@+id/browser_btnRefresh"
+        android:title="@string/strRefresh" />
 </menu>

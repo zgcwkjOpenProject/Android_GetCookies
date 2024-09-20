@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.zgcwkj.bllcode.CookieHep;
+import com.zgcwkj.bllcode.QLongHelp;
 import com.zgcwkj.bllcode.SqliteHelp;
 import com.zgcwkj.getcks.R;
 import com.zgcwkj.models.WebData;
@@ -43,6 +45,14 @@ public class BrowserFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_browser, menu);
+        //动态变换菜单按钮文字
+        var qlData = QLongHelp.getData(getContext());
+        var item = menu.findItem(R.id.browser_btnGetCK);
+        if (qlData.getWeburl().isEmpty()) {
+            item.setTitle(R.string.menu_getCK1);
+        } else {
+            item.setTitle(R.string.menu_getCK2);
+        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -53,6 +63,14 @@ public class BrowserFragment extends Fragment {
         var id = item.getItemId();
         if (id == R.id.browser_btnGetCK) {//获取按钮
             CookieHep.getCookie(context, null, handler);
+            return true;
+        } else if (id == R.id.web_btnResetBrowser) {//重置浏览器按钮
+            CookieManager.getInstance().removeAllCookies(null);//清除CK
+            var mWebview = (WebView) view.findViewById(R.id.my_webview);
+            mWebview.clearCache(true);//清除缓存数据
+            mWebview.clearHistory();//清除历史数据
+            mWebview.clearFormData();//清除表单数据
+            mWebview.reload();
             return true;
         } else if (id == R.id.browser_btnRefresh) {//刷新按钮
             openWebUrl(view, true);
@@ -79,7 +97,6 @@ public class BrowserFragment extends Fragment {
         //浏览器
         var mWebview = (WebView) view.findViewById(R.id.my_webview);
         mWebview.setWebContentsDebuggingEnabled(true);//运行调试
-        //mWebview.setWebViewClient(new MyWebViewClient());
         mWebview.setWebViewClient(new WebViewClient());//不跳转浏览器
         if (isLoad == true) {
             mWebview.clearHistory();//清除历史数据

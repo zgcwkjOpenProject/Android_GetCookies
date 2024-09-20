@@ -26,7 +26,6 @@ public class WebFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         var context = this.getContext();
-        //StaticObj.dialogLoading = DialogLoading.build(context);
         //传递消息
         handler = new WebHandler(Looper.myLooper(), this);
         //视图模型
@@ -72,7 +71,7 @@ public class WebFragment extends Fragment {
         //绑定 ListView 数据
         var dataList = SqliteHelp.GetWebDatas();
         var sDAdapter = new WebDataAdapter(this, R.layout.web_listview_data, dataList, handler);
-        ListView listView = view.findViewById(R.id.server_data);
+        var listView = (ListView) view.findViewById(R.id.server_data);
         listView.setAdapter(sDAdapter);
     }
 }

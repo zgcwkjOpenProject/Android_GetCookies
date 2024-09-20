@@ -5,11 +5,13 @@ public class QLData {
     private String weburl;
     private String clientId;
     private String clientSecret;
+    private boolean autoEnable;
 
     public QLData() {
         weburl = "";
         clientId = "";
         clientSecret = "";
+        autoEnable = false;
     }
 
     public String getWeburl() {
@@ -34,5 +36,13 @@ public class QLData {
 
     public void setClientSecret(String clientSecret) {
         this.clientSecret = clientSecret;
+    }
+
+    public boolean getAutoEnable() {
+        return autoEnable;
+    }
+
+    public void setAutoEnable(boolean autoEnable) {
+        this.autoEnable = autoEnable;
     }
 }

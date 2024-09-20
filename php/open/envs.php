@@ -1,8 +1,5 @@
 <?php
-
-$serverUrl = 'http://qinlong.com';
-$clientId = 'clientId';
-$clientSecret = 'clientSecret';
+require_once 'comm.php';
 
 //处理网络请求
 $requestMethod = $_SERVER['REQUEST_METHOD'];
@@ -25,11 +22,7 @@ if ($requestMethod == 'GET') {
         return;
     }
     // echo json_encode($inputJson);
-    //获取Token
-    $getTokenUrl = "$serverUrl/open/auth/token?client_id=$clientId&client_secret=$clientSecret";
-    $getToken = geturl($getTokenUrl);
-    $token = $getToken['data']['token'];
-    // echo json_encode($token);
+    $token = getToken();
     //获取已有的记录
     $getEnvUrl = "$serverUrl/open/envs/";
     $getEnvData = geturl($getEnvUrl, $token);
@@ -58,46 +51,4 @@ if ($requestMethod == 'GET') {
     //    $saveResult = posturl($envEnableUrl, $arrayID, $token, true);
     //}
     echo json_encode($saveResult);
-}
-
-function geturl($url, $token = '') {
-    $headerArray = array(
-        'Content-Type: application/json',
-        'Accept: application/json'
-    );
-    if (!empty($token))$headerArray[] = "Authorization: Bearer $token";
-    //
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArray);
-    $output = curl_exec($ch);
-    curl_close($ch);
-    $output = json_decode($output, true);
-    return $output;
-}
-
-function posturl($url, $data, $token = '', $isUpdate = false) {
-    $data = json_encode($data);
-    $headerArray = array(
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($data)
-    );
-    if (!empty($token))$headerArray[] = "Authorization: Bearer $token";
-    //
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    if (!$isUpdate) curl_setopt($curl, CURLOPT_POST, true); //POST
-    else curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT'); //PUT
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, $headerArray);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    $output = curl_exec($curl);
-    curl_close($curl);
-    $output = json_decode($output, true);
-    return $output;
 }

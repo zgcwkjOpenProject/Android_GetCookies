@@ -1,5 +1,6 @@
 package com.zgcwkj.getcks.browser;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -65,11 +66,38 @@ public class BrowserFragment extends Fragment {
             CookieHep.getCookie(context, null, handler);
             return true;
         } else if (id == R.id.web_btnResetBrowser) {//重置浏览器按钮
-            CookieManager.getInstance().removeAllCookies(null);//清除CK
+            var builder = new AlertDialog.Builder(context);
+            builder.setIcon(R.drawable.ic_launcher);
+            builder.setTitle("确定重置浏览器吗？");
+            //设置按钮事件
+            builder.setPositiveButton("确定", (dialog, which) -> {
+                CookieManager.getInstance().removeAllCookies(null);//清除CK
+                var mWebview = (WebView) view.findViewById(R.id.my_webview);
+                mWebview.clearCache(true);//清除缓存数据
+                mWebview.clearHistory();//清除历史数据
+                mWebview.clearFormData();//清除表单数据
+                mWebview.reload();
+            });
+            //设置按钮事件
+            builder.setNegativeButton("取消", (dialog, which) -> {
+            });
+            //显示对话框
+            builder.show();
+            return true;
+        } else if (id == R.id.web_btnDesktopBrowser) {//桌面版
             var mWebview = (WebView) view.findViewById(R.id.my_webview);
-            mWebview.clearCache(true);//清除缓存数据
-            mWebview.clearHistory();//清除历史数据
-            mWebview.clearFormData();//清除表单数据
+            String newUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0";
+            mWebview.getSettings().setUserAgentString(newUA);
+            mWebview.getSettings().setUseWideViewPort(true);
+            mWebview.getSettings().setLoadWithOverviewMode(true);
+            mWebview.reload();
+            return true;
+        } else if (id == R.id.web_btnMobileBrowser) {//手机版
+            var mWebview = (WebView) view.findViewById(R.id.my_webview);
+            String newUA = null;
+            mWebview.getSettings().setUserAgentString(newUA);
+            mWebview.getSettings().setUseWideViewPort(false);
+            mWebview.getSettings().setLoadWithOverviewMode(false);
             mWebview.reload();
             return true;
         } else if (id == R.id.browser_btnRefresh) {//刷新按钮
@@ -96,9 +124,9 @@ public class BrowserFragment extends Fragment {
         }
         //浏览器
         var mWebview = (WebView) view.findViewById(R.id.my_webview);
-        mWebview.setWebContentsDebuggingEnabled(true);//运行调试
+        WebView.setWebContentsDebuggingEnabled(true);//运行调试
         mWebview.setWebViewClient(new WebViewClient());//不跳转浏览器
-        if (isLoad == true) {
+        if (isLoad) {
             mWebview.clearHistory();//清除历史数据
             mWebview.clearFormData();//清除表单数据
             mWebview.clearCache(true);//清除缓存数据

@@ -18,6 +18,8 @@
     <string name="menu_getCK1">CopyCK</string>
     <string name="menu_getCK2">PushCK</string>
     <string name="menu_resetBrowser">ResetBrowser</string>
+    <string name="menu_desktopBrowser">DesktopVersion</string>
+    <string name="menu_mobileBrowser">MobileVersion</string>
     <!--输入框-->
     <string name="strAddWeb">Add Web</string>
     <string name="strWebUrl">Web Url:</string>

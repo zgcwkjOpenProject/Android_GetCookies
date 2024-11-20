@@ -4,7 +4,6 @@
         android:id="@+id/navigation_browser"
         android:icon="@drawable/ico_browser"
         android:title="@string/menu_browser" />
-
     <item
         android:id="@+id/navigation_web"
         android:icon="@drawable/ico_web"

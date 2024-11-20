@@ -98,7 +98,7 @@ public class WebDataAdapter extends ArrayAdapter<WebData> {
     private void onClickDelete(View view1, WebData data) {
         var view = myFragment.getView();
         var context = myFragment.getContext();
-        //通过AlertDialog.Builder这个类来实例化我们的一个AlertDialog的对象
+        //实例化一个对象
         var builder = new AlertDialog.Builder(context);
         //设置Title的图标
         builder.setIcon(R.drawable.ic_launcher);

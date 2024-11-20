@@ -8,6 +8,12 @@
         android:id="@+id/web_btnResetBrowser"
         android:title="@string/menu_resetBrowser" />
     <item
+        android:id="@+id/web_btnDesktopBrowser"
+        android:title="@string/menu_desktopBrowser" />
+    <item
+        android:id="@+id/web_btnMobileBrowser"
+        android:title="@string/menu_mobileBrowser" />
+    <item
         android:id="@+id/browser_btnRefresh"
         android:title="@string/strRefresh" />
 </menu>

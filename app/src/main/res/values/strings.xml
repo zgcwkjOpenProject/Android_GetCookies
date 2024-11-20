@@ -18,6 +18,8 @@
     <string name="menu_getCK1">复制CK</string>
     <string name="menu_getCK2">推送CK</string>
     <string name="menu_resetBrowser">重置浏览器</string>
+    <string name="menu_desktopBrowser">桌面版</string>
+    <string name="menu_mobileBrowser">手机版</string>
     <!--输入框-->
     <string name="strAddWeb">添加新的网站（相同网址时，共享身份）</string>
     <string name="strWebUrl">网站地址：</string>

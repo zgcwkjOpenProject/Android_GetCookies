@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class CommonHelp {
 
@@ -60,11 +63,28 @@ public class CommonHelp {
             var files = folder.listFiles();
             if (files != null) {
                 for (var file : files) {
-                    file.delete();//删除文件或子文件夹
+                    if (file.isDirectory()) {
+                        //递归调用删除子文件夹
+                        deleteFiles(file);
+                    } else {
+                        file.delete();
+                    }
                 }
             }
-            return folder.delete();//删除空文件夹或目录
+            return folder.delete();
         }
         return false;
+    }
+
+    //获取MD5值
+    public static String getMd5(String value) {
+        var valueMd5 = "zgcwkj";
+        try {
+            var md = MessageDigest.getInstance("MD5");
+            md.update(value.getBytes());
+            valueMd5 = new BigInteger(1, md.digest()).toString(16);
+        } catch (NoSuchAlgorithmException e) {
+        }
+        return valueMd5;
     }
 }

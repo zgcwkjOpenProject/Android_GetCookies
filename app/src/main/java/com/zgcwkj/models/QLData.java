@@ -1,10 +1,14 @@
 package com.zgcwkj.models;
 
+//青龙数据结构
 public class QLData {
-
+    //青龙地址
     private String weburl;
+    //客户端ID
     private String clientId;
+    //客户端凭据
     private String clientSecret;
+    //自动启用环境变量
     private boolean autoEnable;
 
     public QLData() {

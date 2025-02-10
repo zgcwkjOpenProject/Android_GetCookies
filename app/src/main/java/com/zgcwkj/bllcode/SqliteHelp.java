@@ -19,8 +19,8 @@ public class SqliteHelp extends SQLiteOpenHelper {
         super(context, name, factory, version);
     }
 
-    //获取数据库
-    public static SqliteHelp getDb(Context context) {
+    //初始化数据库
+    public static SqliteHelp initDb(Context context) {
         if (sqliteHelp == null) {
             sqliteHelp = new SqliteHelp(context, "web_app.db", null, 1);
         }
@@ -39,7 +39,7 @@ public class SqliteHelp extends SQLiteOpenHelper {
 
     //获取记录
     public static WebData GetWebData() {
-        var data = new WebData(true, "", "", "", "");
+        var data = new WebData(true);
         var db = sqliteHelp.getReadableDatabase();
         if (!db.isOpen()) return data;
         var cursor = db.rawQuery("select * from web_data where isselect = 1", null);
@@ -60,11 +60,13 @@ public class SqliteHelp extends SQLiteOpenHelper {
             var cookie = cursor.getString(cookieIndex);
             var cookiekeyIndex = cursor.getColumnIndex("cookiekey");
             var cookiekey = cursor.getString(cookiekeyIndex);
+            var cookieisolateIndex = cursor.getColumnIndex("cookieisolate");
+            var cookieisolate = cursor.getInt(cookieisolateIndex) > 0;
             var isselectIndex = cursor.getColumnIndex("isselect");
             var isselect = cursor.getInt(isselectIndex) > 0;
             var remarkIndex = cursor.getColumnIndex("remark");
             var remark = cursor.getString(remarkIndex);
-            dataList.add(new WebData(isselect, weburl, cookie, cookiekey, remark, id));
+            dataList.add(new WebData(isselect, weburl, cookie, cookiekey, cookieisolate, remark, id));
         }
         return dataList;
     }
@@ -78,6 +80,7 @@ public class SqliteHelp extends SQLiteOpenHelper {
         values.put("weburl", data.getWeburl());
         values.put("cookie", data.getCookie());
         values.put("cookiekey", data.getCookiekey());
+        values.put("cookieisolate", data.getCookieIsolate());
         values.put("remark", data.getRemark());
         values.put("isselect", data.getIsselect());
         if (!ExistWebData(data)) {
@@ -116,29 +119,32 @@ public class SqliteHelp extends SQLiteOpenHelper {
 
     //初始化数据时创建数据
     public static void initDBData(WebData data, SQLiteDatabase db) {
-        var sql = "insert into web_data(id,weburl,cookie,cookiekey,remark,isselect) values(@id,@weburl,@cookie,@cookiekey,@remark,@isselect)";
+        var sql = "insert into web_data(id,weburl,cookie,cookiekey,cookieisolate,remark,isselect) values(@id,@weburl,@cookie,@cookiekey,@cookieisolate,@remark,@isselect)";
         var id = UUID.randomUUID().toString();
-        db.execSQL(sql, new Object[]{id, data.getWeburl(), data.getCookie(), data.getCookiekey(), data.getRemark(), data.getIsselect()});
+        db.execSQL(sql, new Object[]{id, data.getWeburl(), data.getCookie(), data.getCookiekey(), data.getCookieIsolate(), data.getRemark(), data.getIsselect()});
     }
 
     //初始化数据库
     @Override
     public void onCreate(SQLiteDatabase db) {
         //表结构
-        var sql = "CREATE TABLE web_data (id TEXT PRIMARY KEY,weburl TEXT,cookie TEXT,cookiekey TEXT,remark TEXT,isselect BOOLEAN);";
+        var sql = "CREATE TABLE web_data (id TEXT PRIMARY KEY,weburl TEXT,cookie TEXT,cookiekey TEXT,cookieisolate BOOLEAN,remark TEXT,isselect BOOLEAN);";
         db.execSQL(sql);
         //默认数据
-        var data1 = new WebData(true, "http://zgcwkj.cn", "", "ck1;ck2;", "示例");
+        var data1 = new WebData(true, "http://www.zgcwkj.cn", "", "ck1;ck2;", false, "示例");
         initDBData(data1, db);
         //默认数据
-        var data2 = new WebData(false, "https://github.com/zgcwkjOpenProject/Android_GetCookies", "", "", "开源地址");
+        var data2 = new WebData(false, "https://github.com/zgcwkjOpenProject/Android_GetCookies", "", "", false, "开源地址");
         initDBData(data2, db);
         //默认数据
-        var data3 = new WebData(false, "https://plogin.m.jd.com/login/login", "", "pt_pin;pt_key;", "京东CK");
+        var data3 = new WebData(false, "https://plogin.m.jd.com/login/login", "", "pt_pin;pt_key;", false, "京东CK");
         initDBData(data3, db);
         //默认数据
-        var data4 = new WebData(false, "https://h5.ele.me/login", "", "unb;cookie2;USERID;SID;", "饿了么CK");
+        var data4 = new WebData(false, "https://plogin.m.jd.com/login/login", "", "pt_pin;pt_key;", true, "京东CK2");
         initDBData(data4, db);
+        //默认数据
+        var data5 = new WebData(false, "https://h5.ele.me/login", "", "unb;cookie2;USERID;SID;", false, "饿了么CK");
+        initDBData(data5, db);
     }
 
     @Override

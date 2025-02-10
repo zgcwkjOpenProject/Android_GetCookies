@@ -33,9 +33,9 @@ public class WebHandler extends Handler {
                 Toast.makeText(context, "保存失败", Toast.LENGTH_SHORT).show();
                 break;
             case 1:
-                StaticObj.dialogInput.close();//关闭对话框
+                StaticObj.dialogInput.close();//关闭对话框（网站配置）
                 nactivity.LoadDataListView(nactivity.getView());//加载列表数据
-                Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show();
                 break;
             case 3:
                 Toast.makeText(context, "选择失败", Toast.LENGTH_SHORT).show();
@@ -45,7 +45,11 @@ public class WebHandler extends Handler {
                 Toast.makeText(context, "选择成功", Toast.LENGTH_SHORT).show();
                 break;
             case 5:
-                StaticObj.dialogInputQl.close();//关闭对话框
+                nactivity.LoadDataListView(nactivity.getView());//加载列表数据
+                Toast.makeText(context, "请手动重启应用", Toast.LENGTH_SHORT).show();
+                break;
+            case 11:
+                StaticObj.dialogInputQl.close();//关闭对话框（青龙配置）
                 nactivity.LoadDataListView(nactivity.getView());//加载列表数据
                 Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show();
                 break;

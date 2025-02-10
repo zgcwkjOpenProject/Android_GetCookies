@@ -86,7 +86,7 @@ public class BrowserFragment extends Fragment {
             return true;
         } else if (id == R.id.web_btnDesktopBrowser) {//桌面版
             var mWebview = (WebView) view.findViewById(R.id.my_webview);
-            String newUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0";
+            var newUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0";
             mWebview.getSettings().setUserAgentString(newUA);
             mWebview.getSettings().setUseWideViewPort(true);
             mWebview.getSettings().setLoadWithOverviewMode(true);
@@ -94,8 +94,7 @@ public class BrowserFragment extends Fragment {
             return true;
         } else if (id == R.id.web_btnMobileBrowser) {//手机版
             var mWebview = (WebView) view.findViewById(R.id.my_webview);
-            String newUA = null;
-            mWebview.getSettings().setUserAgentString(newUA);
+            mWebview.getSettings().setUserAgentString(null);
             mWebview.getSettings().setUseWideViewPort(false);
             mWebview.getSettings().setLoadWithOverviewMode(false);
             mWebview.reload();
@@ -124,8 +123,14 @@ public class BrowserFragment extends Fragment {
         }
         //浏览器
         var mWebview = (WebView) view.findViewById(R.id.my_webview);
-        WebView.setWebContentsDebuggingEnabled(true);//运行调试
-        mWebview.setWebViewClient(new WebViewClient());//不跳转浏览器
+        //配置浏览器客户端
+        mWebview.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                CookieManager.getInstance().flush();//存储 Cookie
+            }
+        });
+        //刷新按钮时，清理缓存
         if (isLoad) {
             mWebview.clearHistory();//清除历史数据
             mWebview.clearFormData();//清除表单数据

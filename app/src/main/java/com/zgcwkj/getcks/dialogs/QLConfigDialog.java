@@ -74,7 +74,7 @@ public class QLConfigDialog {
                 isOK = true;
             }
             //发送消息
-            StaticObj.sendMsg(handler, (isOK ? 5 : 0));
+            StaticObj.sendMsg(handler, (isOK ? 11 : 0));
         });
         //清空按钮事件
         btnClear.setOnClickListener(arg -> {
@@ -83,7 +83,7 @@ public class QLConfigDialog {
             var isOK = QLongHelp.clearData(mContext);
             isOK = true;
             //发送消息
-            StaticObj.sendMsg(handler, (isOK ? 5 : 0));
+            StaticObj.sendMsg(handler, (isOK ? 11 : 0));
             //关闭弹窗
             close();
         });

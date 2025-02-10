@@ -19,11 +19,17 @@ import cn.zhxu.okhttps.gson.GsonMsgConvertor;
 
 public class QLongHelp {
 
+    //获取青龙配置文件
+    private static File getConfigFile(Context context) {
+        var dataPath = CommonHelp.getDataPath(context);
+        var file = new File(dataPath + "/qlData.json");
+        return file;
+    }
+
     //获取青龙配置
     public static QLData getData(Context context) {
         try {
-            var dataPath = CommonHelp.getDataPath(context);
-            var file = new File(dataPath + "/qlData.json");
+            var file = getConfigFile(context);
             var json = new StringBuilder();
             var br = new BufferedReader(new FileReader(file));
             var line = "";
@@ -41,8 +47,7 @@ public class QLongHelp {
     //保存青龙配置
     public static boolean setData(Context context, QLData data) {
         try {
-            var dataPath = CommonHelp.getDataPath(context);
-            var file = new File(dataPath + "/qlData.json");
+            var file = getConfigFile(context);
             var json = new Gson().toJson(data);
             var writer = new FileWriter(file);
             writer.write(json);
@@ -55,8 +60,7 @@ public class QLongHelp {
 
     //清空青龙配置
     public static boolean clearData(Context context) {
-        var dataPath = CommonHelp.getDataPath(context);
-        var file = new File(dataPath + "/qlData.json");
+        var file = getConfigFile(context);
         return file.delete();
     }
 

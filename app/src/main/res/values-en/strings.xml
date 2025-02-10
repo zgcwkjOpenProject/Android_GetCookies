@@ -28,6 +28,7 @@
     <string name="strCookieKeyHint">Unmatched values will be added to the environment variable</string>
     <string name="strCookie">Cookie:</string>
     <string name="strCookieHint">Preview matching results</string>
+    <string name="strCookieIsolate">Data isolation (restart required)</string>
     <string name="strRemark">Remark:</string>
     <string name="strRemarkHint">Cannot be empty, match data through remarks</string>
     <string name="strConfigQl">ConfigQL</string>

@@ -21,13 +21,14 @@
     <string name="menu_desktopBrowser">桌面版</string>
     <string name="menu_mobileBrowser">手机版</string>
     <!--输入框-->
-    <string name="strAddWeb">添加新的网站（相同网址时，共享身份）</string>
+    <string name="strAddWeb">添加新的网站</string>
     <string name="strWebUrl">网站地址：</string>
     <string name="strWebUrlHint">输入网站地址</string>
     <string name="strCookieKey">获取CK键：</string>
     <string name="strCookieKeyHint">未匹配的键，将加到环境变量中</string>
     <string name="strCookie">匹配CK值：</string>
     <string name="strCookieHint">匹配结果预览</string>
+    <string name="strCookieIsolate">数据隔离（需要重启应用）</string>
     <string name="strRemark">备 注：</string>
     <string name="strRemarkHint">不能为空，通过备注匹配平台数据</string>
     <string name="strConfigQl">配置青龙</string>

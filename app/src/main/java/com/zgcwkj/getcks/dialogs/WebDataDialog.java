@@ -2,9 +2,11 @@ package com.zgcwkj.getcks.dialogs;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.zgcwkj.bllcode.CookieHep;
@@ -31,7 +33,7 @@ public class WebDataDialog {
 
     //显示
     public void show(Handler handler) {
-        var data = new WebData(false, "", "", "", "", "");
+        var data = new WebData(false);
         show(data, handler);
     }
 
@@ -56,6 +58,13 @@ public class WebDataDialog {
         //备注
         var tv_remark = (TextView) contentView.findViewById(R.id.web_inputData_remark);
         tv_remark.setText(data.getRemark());
+        //数据隔离
+        var tv_cookieIsolate = (Switch) contentView.findViewById(R.id.web_inputData_cookieIsolate);
+        tv_cookieIsolate.setChecked(data.getCookieIsolate());
+        //不支持的系统版本隐藏，安卓9
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            tv_cookieIsolate.setVisibility(View.GONE);
+        }
         //按钮
         var btnOk = (Button) contentView.findViewById(R.id.web_inputData_btnOk);
         var btnCancel = (Button) contentView.findViewById(R.id.web_inputData_btnCancel);
@@ -76,6 +85,7 @@ public class WebDataDialog {
                 data.setWeburl(tv_weburl.getText().toString());
                 data.setCookiekey(tv_cookiekey.getText().toString());
                 data.setRemark(tv_remark.getText().toString());
+                data.setCookieIsolate(tv_cookieIsolate.isChecked());
                 SqliteHelp.SaveWebData(data);
                 isOK = true;
             }

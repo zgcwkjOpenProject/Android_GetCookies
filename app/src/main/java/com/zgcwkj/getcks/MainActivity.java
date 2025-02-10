@@ -1,8 +1,10 @@
 package com.zgcwkj.getcks;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.zgcwkj.bllcode.CommonHelp;
+import com.zgcwkj.bllcode.CookieHep;
 import com.zgcwkj.bllcode.SqliteHelp;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,7 +25,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         mContext = getApplicationContext();
         //数据库
-        SqliteHelp.getDb(this);
+        SqliteHelp.initDb(this);
+        //隔离浏览器数据
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            //清除无用的历史数据
+            CookieHep.clearHistory(mContext);
+            //创建隔离环境
+            var data = SqliteHelp.GetWebData();
+            if (data.getCookieIsolate()) {
+                var dataKey = CommonHelp.getMd5(data.getId());
+                WebView.setDataDirectorySuffix(dataKey);
+            }
+        }
+        //允许浏览器调试
+        WebView.setWebContentsDebuggingEnabled(true);
         //
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

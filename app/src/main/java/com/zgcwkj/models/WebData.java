@@ -1,26 +1,45 @@
 package com.zgcwkj.models;
 
+//网站数据结构
 public class WebData {
-
+    //ID
     private String id;
-    private Boolean isselect;
+    //选择状态
+    private boolean isselect;
+    //网站地址
     private String weburl;
+    //Cookie
     private String cookie;
+    //Cookie Key
     private String cookiekey;
+    //Cookie 隔离
+    private boolean cookieisolate;
+    //备注
     private String remark;
 
-    public WebData(Boolean isselect, String weburl, String cookie, String cookiekey, String remark) {
+    public WebData(boolean isselect) {
+        this.weburl = "";
+        this.cookie = "";
+        this.cookiekey = "";
+        this.cookieisolate = false;
+        this.isselect = isselect;
+        this.remark = "";
+    }
+
+    public WebData(boolean isselect, String weburl, String cookie, String cookiekey, boolean cookieIsolate, String remark) {
         this.weburl = weburl;
         this.cookie = cookie;
         this.cookiekey = cookiekey;
+        this.cookieisolate = cookieIsolate;
         this.isselect = isselect;
         this.remark = remark;
     }
 
-    public WebData(Boolean isselect, String weburl, String cookie, String cookiekey, String remark, String id) {
+    public WebData(boolean isselect, String weburl, String cookie, String cookiekey, boolean cookieIsolate, String remark, String id) {
         this.weburl = weburl;
         this.cookie = cookie;
         this.cookiekey = cookiekey;
+        this.cookieisolate = cookieIsolate;
         this.isselect = isselect;
         this.remark = remark;
         this.id = id;
@@ -35,11 +54,11 @@ public class WebData {
         this.id = id;
     }
 
-    public Boolean getIsselect() {
+    public boolean getIsselect() {
         return isselect;
     }
 
-    public void setIsselect(Boolean isselect) {
+    public void setIsselect(boolean isselect) {
         this.isselect = isselect;
     }
 
@@ -65,6 +84,14 @@ public class WebData {
 
     public void setCookiekey(String cookiekey) {
         this.cookiekey = cookiekey;
+    }
+
+    public boolean getCookieIsolate() {
+        return cookieisolate;
+    }
+
+    public void setCookieIsolate(boolean cookieIsolate) {
+        this.cookieisolate = cookieIsolate;
     }
 
     public String getRemark() {

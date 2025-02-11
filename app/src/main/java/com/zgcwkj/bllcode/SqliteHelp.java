@@ -24,13 +24,33 @@ public class SqliteHelp extends SQLiteOpenHelper {
         if (sqliteHelp == null) {
             sqliteHelp = new SqliteHelp(context, "web_app.db", null, 1);
         }
-        sqliteHelp.getReadableDatabase();
+        var db = sqliteHelp.getReadableDatabase();
+        //升级数据库
+        {
+            //检查表
+            var sqlStr = "PRAGMA table_info(web_data)";
+            var cursor = db.rawQuery(sqlStr, null);
+            if (cursor != null) {
+                //检查列
+                var columnIndex = cursor.getColumnIndex("name");
+                var columnGet = false;
+                while (cursor.moveToNext()) {
+                    var colName = cursor.getString(columnIndex);
+                    if (colName.equals("cookieisolate")) columnGet = true;
+                }
+                //创建列
+                if (!columnGet) {
+                    sqlStr = "ALTER TABLE web_data ADD COLUMN cookieisolate BOOLEAN";
+                    db.execSQL(sqlStr);
+                }
+            }
+        }
         return sqliteHelp;
     }
 
     //获取记录
     public static List<WebData> GetWebDatas() {
-        SQLiteDatabase db = sqliteHelp.getReadableDatabase();
+        var db = sqliteHelp.getReadableDatabase();
         if (!db.isOpen()) return new ArrayList<>();
         var cursor = db.rawQuery("select * from web_data", null);
         var dataList = getCursorWebData(cursor);

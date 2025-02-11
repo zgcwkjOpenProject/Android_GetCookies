@@ -17,10 +17,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.zgcwkj.bllcode.CommonHelp;
 import com.zgcwkj.bllcode.CookieHep;
 import com.zgcwkj.bllcode.QLongHelp;
 import com.zgcwkj.bllcode.SqliteHelp;
+import com.zgcwkj.getcks.MainActivity;
 import com.zgcwkj.getcks.R;
+import com.zgcwkj.getcks.StaticObj;
 import com.zgcwkj.models.WebData;
 
 public class BrowserFragment extends Fragment {
@@ -120,6 +123,19 @@ public class BrowserFragment extends Fragment {
             data.setWeburl(url);
             var id = "00000000-0000-0000-0000-000000000000";
             data.setId(id);
+        }
+        //检查是否需要重启
+        var dataKey = CommonHelp.getMd5(data.getId());
+        if ((data.getCookieIsolate() && !dataKey.equals(StaticObj.dataDirectorySuffix)) ||
+                (!data.getCookieIsolate() && !StaticObj.dataDirectorySuffix.isEmpty())) {
+            //显示对话框
+            var builder = new AlertDialog.Builder(view.getContext());
+            builder.setIcon(R.drawable.ic_launcher);
+            builder.setTitle("检测到环境变化，请点击重启应用！");
+            builder.setPositiveButton("重启", (dialog, which) -> {
+                MainActivity.activity.restartApp();
+            });
+            builder.show();
         }
         //浏览器
         var mWebview = (WebView) view.findViewById(R.id.my_webview);

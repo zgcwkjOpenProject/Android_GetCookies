@@ -73,8 +73,7 @@ public class WebDataAdapter extends ArrayAdapter<WebData> {
         //反馈消息至界面
         StaticObj.dialogLoading = DialogLoading.build(context);
         StaticObj.dialogLoading.show();
-        var msgWhat = data.getCookieIsolate() ? 5 : 4;//4选择成功,5重启应用
-        StaticObj.sendMsg(handler, msgWhat);
+        StaticObj.sendMsg(handler, 4);
     }
 
     /**

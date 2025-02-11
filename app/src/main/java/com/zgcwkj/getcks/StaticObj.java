@@ -8,12 +8,12 @@ import com.zgcwkj.getcks.dialogs.WebDataDialog;
 
 //静态对象
 public class StaticObj {
+    //数据目录后缀
+    public static String dataDirectorySuffix = "";
     //加载弹窗
     public static DialogLoading dialogLoading;
-
     //输入信息弹窗
     public static WebDataDialog dialogInput;
-
     //输入信息弹窗2
     public static QLConfigDialog dialogInputQl;
 

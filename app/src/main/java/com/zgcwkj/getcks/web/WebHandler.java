@@ -44,10 +44,6 @@ public class WebHandler extends Handler {
                 nactivity.LoadDataListView(nactivity.getView());//加载列表数据
                 Toast.makeText(context, "选择成功", Toast.LENGTH_SHORT).show();
                 break;
-            case 5:
-                nactivity.LoadDataListView(nactivity.getView());//加载列表数据
-                Toast.makeText(context, "请手动重启应用", Toast.LENGTH_SHORT).show();
-                break;
             case 11:
                 StaticObj.dialogInputQl.close();//关闭对话框（青龙配置）
                 nactivity.LoadDataListView(nactivity.getView());//加载列表数据

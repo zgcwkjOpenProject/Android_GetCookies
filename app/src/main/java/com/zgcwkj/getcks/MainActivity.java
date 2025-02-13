@@ -19,9 +19,9 @@ import com.zgcwkj.bllcode.CookieHep;
 import com.zgcwkj.bllcode.SqliteHelp;
 
 public class MainActivity extends AppCompatActivity {
-    public static MainActivity activity;
-    private Context mContext;
+    public static MainActivity activity;//程序活动
     private long exitTime = 0;//退出计时
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

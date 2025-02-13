@@ -21,34 +21,57 @@ public class SqliteHelp extends SQLiteOpenHelper {
 
     //初始化数据库
     public static SqliteHelp initDb(Context context) {
+        //创建数据库
         if (sqliteHelp == null) {
             sqliteHelp = new SqliteHelp(context, "web_app.db", null, 1);
         }
         var db = sqliteHelp.getReadableDatabase();
         //升级数据库
-        {
-            //检查表
-            var sqlStr = "PRAGMA table_info(web_data)";
-            var cursor = db.rawQuery(sqlStr, null);
-            if (cursor != null) {
-                //检查列
-                var columnIndex = cursor.getColumnIndex("name");
-                var columnGet = false;
-                while (cursor.moveToNext()) {
-                    var colName = cursor.getString(columnIndex);
-                    if (colName.equals("cookieisolate")) columnGet = true;
-                }
-                //创建列
-                if (!columnGet) {
-                    sqlStr = "ALTER TABLE web_data ADD COLUMN cookieisolate BOOLEAN";
-                    db.execSQL(sqlStr);
-                }
-            }
-        }
+        updateDb(db);
+        //返回对象
         return sqliteHelp;
     }
 
-    //获取记录
+    //更新数据库
+    private static void updateDb(SQLiteDatabase db) {
+        String sqlStr;
+        //检查表1
+        sqlStr = "PRAGMA table_info(web_data)";
+        var cursorA = db.rawQuery(sqlStr, null);
+        if (cursorA != null) {
+            //检查列
+            var columnIndex = cursorA.getColumnIndex("name");
+            var columnGet = false;
+            while (cursorA.moveToNext()) {
+                var colName = cursorA.getString(columnIndex);
+                if (colName.equals("cookieisolate")) columnGet = true;
+            }
+            //创建列
+            if (!columnGet) {
+                sqlStr = "ALTER TABLE web_data ADD COLUMN cookieisolate BOOLEAN DEFAULT 0";
+                db.execSQL(sqlStr);
+            }
+        }
+        //检查表2
+        sqlStr = "PRAGMA table_info(web_data)";
+        var cursorB = db.rawQuery(sqlStr, null);
+        if (cursorB != null) {
+            //检查列
+            var columnIndex = cursorB.getColumnIndex("name");
+            var columnGet = false;
+            while (cursorB.moveToNext()) {
+                var colName = cursorB.getString(columnIndex);
+                if (colName.equals("userAgent")) columnGet = true;
+            }
+            //创建列
+            if (!columnGet) {
+                sqlStr = "ALTER TABLE web_data ADD COLUMN userAgent TEXT DEFAULT ''";
+                db.execSQL(sqlStr);
+            }
+        }
+    }
+
+    //获取所有记录
     public static List<WebData> GetWebDatas() {
         var db = sqliteHelp.getReadableDatabase();
         if (!db.isOpen()) return new ArrayList<>();
@@ -57,7 +80,7 @@ public class SqliteHelp extends SQLiteOpenHelper {
         return dataList;
     }
 
-    //获取记录
+    //获取选中记录
     public static WebData GetWebData() {
         var data = new WebData(true);
         var db = sqliteHelp.getReadableDatabase();
@@ -82,11 +105,13 @@ public class SqliteHelp extends SQLiteOpenHelper {
             var cookiekey = cursor.getString(cookiekeyIndex);
             var cookieisolateIndex = cursor.getColumnIndex("cookieisolate");
             var cookieisolate = cursor.getInt(cookieisolateIndex) > 0;
-            var isselectIndex = cursor.getColumnIndex("isselect");
-            var isselect = cursor.getInt(isselectIndex) > 0;
+            var userAgentIndex = cursor.getColumnIndex("userAgent");
+            var userAgent = cursor.getString(userAgentIndex);
             var remarkIndex = cursor.getColumnIndex("remark");
             var remark = cursor.getString(remarkIndex);
-            dataList.add(new WebData(isselect, weburl, cookie, cookiekey, cookieisolate, remark, id));
+            var isselectIndex = cursor.getColumnIndex("isselect");
+            var isselect = cursor.getInt(isselectIndex) > 0;
+            dataList.add(new WebData(isselect, weburl, cookie, cookiekey, cookieisolate, userAgent, remark, id));
         }
         return dataList;
     }
@@ -102,6 +127,7 @@ public class SqliteHelp extends SQLiteOpenHelper {
         values.put("cookiekey", data.getCookiekey());
         values.put("cookieisolate", data.getCookieIsolate());
         values.put("remark", data.getRemark());
+        values.put("userAgent", data.getUserAgent());
         values.put("isselect", data.getIsselect());
         if (!ExistWebData(data)) {
             //新增
@@ -137,34 +163,42 @@ public class SqliteHelp extends SQLiteOpenHelper {
         return cursor.getCount() > 0;
     }
 
-    //初始化数据时创建数据
-    public static void initDBData(WebData data, SQLiteDatabase db) {
-        var sql = "insert into web_data(id,weburl,cookie,cookiekey,cookieisolate,remark,isselect) values(@id,@weburl,@cookie,@cookiekey,@cookieisolate,@remark,@isselect)";
+    //初始化数据库时创建数据
+    public static void addWebData(WebData data, SQLiteDatabase db) {
+        var sql = """
+                insert into web_data(id,weburl,cookie,cookiekey,cookieisolate,userAgent,remark,isselect)
+                values(@id,@weburl,@cookie,@cookiekey,@cookieisolate,@userAgent,@remark,@isselect)
+                """;
         var id = UUID.randomUUID().toString();
-        db.execSQL(sql, new Object[]{id, data.getWeburl(), data.getCookie(), data.getCookiekey(), data.getCookieIsolate(), data.getRemark(), data.getIsselect()});
+        db.execSQL(sql, new Object[]{id, data.getWeburl(),
+                data.getCookie(), data.getCookiekey(), data.getCookieIsolate(),
+                data.getUserAgent(), data.getRemark(), data.getIsselect()});
     }
 
     //初始化数据库
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //表结构
-        var sql = "CREATE TABLE web_data (id TEXT PRIMARY KEY,weburl TEXT,cookie TEXT,cookiekey TEXT,cookieisolate BOOLEAN,remark TEXT,isselect BOOLEAN);";
+        //创建表结构
+        var sql = """
+                CREATE TABLE web_data (id TEXT PRIMARY KEY,weburl TEXT,cookie TEXT,cookiekey TEXT,cookieisolate BOOLEAN,
+                userAgent TEXT,remark TEXT,isselect BOOLEAN);
+                """;
         db.execSQL(sql);
         //默认数据
-        var data1 = new WebData(true, "http://www.zgcwkj.cn", "", "ck1;ck2;", false, "示例");
-        initDBData(data1, db);
+        var data1 = new WebData(true, "http://www.zgcwkj.cn", "ck1;ck2;", false, "示例");
+        addWebData(data1, db);
         //默认数据
-        var data2 = new WebData(false, "https://github.com/zgcwkjOpenProject/Android_GetCookies", "", "", false, "开源地址");
-        initDBData(data2, db);
+        var data2 = new WebData(false, "https://github.com/zgcwkjOpenProject/Android_GetCookies", "", false, "开源地址");
+        addWebData(data2, db);
         //默认数据
-        var data3 = new WebData(false, "https://plogin.m.jd.com/login/login", "", "pt_pin;pt_key;", false, "京东CK");
-        initDBData(data3, db);
+        var data3 = new WebData(false, "https://plogin.m.jd.com/login/login/", "pt_pin;pt_key;", false, "京东CK");
+        addWebData(data3, db);
         //默认数据
-        var data4 = new WebData(false, "https://plogin.m.jd.com/login/login", "", "pt_pin;pt_key;", true, "京东CK2");
-        initDBData(data4, db);
+        var data4 = new WebData(false, "https://plogin.m.jd.com/login/login/", "pt_pin;pt_key;", true, "京东CK2");
+        addWebData(data4, db);
         //默认数据
-        var data5 = new WebData(false, "https://h5.ele.me/login", "", "unb;cookie2;USERID;SID;", false, "饿了么CK");
-        initDBData(data5, db);
+        var data5 = new WebData(false, "https://h5.ele.me/login/", "unb;cookie2;USERID;SID;", false, "饿了么CK");
+        addWebData(data5, db);
     }
 
     @Override

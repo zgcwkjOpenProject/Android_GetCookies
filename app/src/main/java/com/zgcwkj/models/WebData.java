@@ -14,6 +14,8 @@ public class WebData {
     private String cookiekey;
     //Cookie 隔离
     private boolean cookieisolate;
+    //UserAgent
+    private String userAgent;
     //备注
     private String remark;
 
@@ -23,24 +25,29 @@ public class WebData {
         this.cookiekey = "";
         this.cookieisolate = false;
         this.isselect = isselect;
+        this.userAgent = "";
         this.remark = "";
     }
 
-    public WebData(boolean isselect, String weburl, String cookie, String cookiekey, boolean cookieIsolate, String remark) {
+    public WebData(boolean isselect, String weburl, String cookiekey, boolean cookieIsolate,
+                   String remark) {
         this.weburl = weburl;
-        this.cookie = cookie;
+        this.cookie = "";
         this.cookiekey = cookiekey;
         this.cookieisolate = cookieIsolate;
         this.isselect = isselect;
+        this.userAgent = "";
         this.remark = remark;
     }
 
-    public WebData(boolean isselect, String weburl, String cookie, String cookiekey, boolean cookieIsolate, String remark, String id) {
+    public WebData(boolean isselect, String weburl, String cookie, String cookiekey, boolean cookieIsolate,
+                   String userAgent, String remark, String id) {
         this.weburl = weburl;
         this.cookie = cookie;
         this.cookiekey = cookiekey;
         this.cookieisolate = cookieIsolate;
         this.isselect = isselect;
+        this.userAgent = userAgent;
         this.remark = remark;
         this.id = id;
     }
@@ -92,6 +99,14 @@ public class WebData {
 
     public void setCookieIsolate(boolean cookieIsolate) {
         this.cookieisolate = cookieIsolate;
+    }
+
+    public String getUserAgent() {
+        return userAgent;
+    }
+
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
     }
 
     public String getRemark() {

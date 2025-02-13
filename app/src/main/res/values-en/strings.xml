@@ -18,8 +18,6 @@
     <string name="menu_getCK1">CopyCK</string>
     <string name="menu_getCK2">PushCK</string>
     <string name="menu_resetBrowser">ResetBrowser</string>
-    <string name="menu_desktopBrowser">DesktopVersion</string>
-    <string name="menu_mobileBrowser">MobileVersion</string>
     <!--输入框-->
     <string name="strAddWeb">Add Web</string>
     <string name="strWebUrl">Web Url:</string>
@@ -28,9 +26,11 @@
     <string name="strCookieKeyHint">Unmatched values will be added to the environment variable</string>
     <string name="strCookie">Cookie:</string>
     <string name="strCookieHint">Preview matching results</string>
-    <string name="strCookieIsolate">Data isolation (restart required)</string>
+    <string name="strWebUserAgent">UserAgent:</string>
+    <string name="strWebUserAgentHint">Can be null, UserAgent</string>
     <string name="strRemark">Remark:</string>
     <string name="strRemarkHint">Cannot be empty, match data through remarks</string>
+    <string name="strCookieIsolate">Data isolation (restart required)</string>
     <string name="strConfigQl">ConfigQL</string>
     <string name="strConfigQlUrl">ConfigQlUrl:</string>
     <string name="strConfigQlClientId">ClientId:</string>

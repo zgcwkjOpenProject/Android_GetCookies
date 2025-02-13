@@ -8,9 +8,9 @@ android {
 
     defaultConfig {
         applicationId "com.zgcwkj.getcks"
-        minSdk 24
+        minSdk 23
         targetSdk 34
-        versionCode 11
+        versionCode 25021301
         versionName "1.1"
     }
 

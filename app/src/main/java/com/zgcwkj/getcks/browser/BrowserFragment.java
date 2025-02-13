@@ -51,12 +51,13 @@ public class BrowserFragment extends Fragment {
         inflater.inflate(R.menu.menu_browser, menu);
         //动态变换菜单按钮文字
         var qlData = QLongHelp.getData(getContext());
-        var item = menu.findItem(R.id.browser_btnGetCK);
+        var btnGetCK = menu.findItem(R.id.browser_btnGetCK);
         if (qlData.getWeburl().isEmpty()) {
-            item.setTitle(R.string.menu_getCK1);
+            btnGetCK.setTitle(R.string.menu_getCK1);
         } else {
-            item.setTitle(R.string.menu_getCK2);
+            btnGetCK.setTitle(R.string.menu_getCK2);
         }
+        //调用基类处理
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -87,26 +88,11 @@ public class BrowserFragment extends Fragment {
             //显示对话框
             builder.show();
             return true;
-        } else if (id == R.id.web_btnDesktopBrowser) {//桌面版
-            var mWebview = (WebView) view.findViewById(R.id.my_webview);
-            var newUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0";
-            mWebview.getSettings().setUserAgentString(newUA);
-            mWebview.getSettings().setUseWideViewPort(true);
-            mWebview.getSettings().setLoadWithOverviewMode(true);
-            mWebview.reload();
-            return true;
-        } else if (id == R.id.web_btnMobileBrowser) {//手机版
-            var mWebview = (WebView) view.findViewById(R.id.my_webview);
-            mWebview.getSettings().setUserAgentString(null);
-            mWebview.getSettings().setUseWideViewPort(false);
-            mWebview.getSettings().setLoadWithOverviewMode(false);
-            mWebview.reload();
-            return true;
         } else if (id == R.id.browser_btnRefresh) {//刷新按钮
             openWebUrl(view, true);
             return true;
         }
-        //其它让基类来处理
+        //调用基类处理
         return super.onOptionsItemSelected(item);
     }
 
@@ -117,6 +103,7 @@ public class BrowserFragment extends Fragment {
 
     //打开网站（第一条数据）
     private WebData openWebUrl(View view, boolean isLoad) {
+        var context = view.getContext();
         var data = SqliteHelp.GetWebData();
         if (data.getWeburl().isEmpty()) {
             var url = "http://zgcwkj.cn/";
@@ -129,8 +116,9 @@ public class BrowserFragment extends Fragment {
         if ((data.getCookieIsolate() && !dataKey.equals(StaticObj.dataDirectorySuffix)) ||
                 (!data.getCookieIsolate() && !StaticObj.dataDirectorySuffix.isEmpty())) {
             //显示对话框
-            var builder = new AlertDialog.Builder(view.getContext());
+            var builder = new AlertDialog.Builder(context);
             builder.setIcon(R.drawable.ic_launcher);
+            builder.setCancelable(false);
             builder.setTitle("检测到环境变化，请点击重启应用！");
             builder.setPositiveButton("重启", (dialog, which) -> {
                 MainActivity.activity.restartApp();
@@ -161,6 +149,14 @@ public class BrowserFragment extends Fragment {
         settings.setUseWideViewPort(false);//禁用大视图模式
         settings.setDatabaseEnabled(false);//是否使用缓存
         settings.setDomStorageEnabled(true);//DOM存储
+        //预览模式
+        if (!data.getUserAgent().isEmpty()) {
+            settings.setUserAgentString(data.getUserAgent());//用户代理
+            settings.setLoadWithOverviewMode(false);//禁用自适应屏幕
+            settings.setSupportZoom(true);//启用缩放
+            settings.setBuiltInZoomControls(true);//显示缩放按钮
+            mWebview.setInitialScale(50);//缩放比例
+        }
         //打开网站
         mWebview.loadUrl(data.getWeburl());
         return data;

@@ -43,27 +43,30 @@ public class WebDataDialog {
         final var contentView = View.inflate(mContext, R.layout.web_input_data, null);
         var context = contentView.getContext();
         //Url
-        var tv_weburl = (TextView) contentView.findViewById(R.id.web_inputData_weburl);
-        tv_weburl.setText(data.getWeburl());
+        var ipWeburl = (TextView) contentView.findViewById(R.id.web_inputData_weburl);
+        ipWeburl.setText(data.getWeburl());
         //CKK
-        var tv_cookiekey = (TextView) contentView.findViewById(R.id.web_inputData_cookiekey);
-        tv_cookiekey.setText(data.getCookiekey());
+        var ipCookiekey = (TextView) contentView.findViewById(R.id.web_inputData_cookiekey);
+        ipCookiekey.setText(data.getCookiekey());
         //CKKData
         if (!data.getWeburl().isEmpty() && data.getIsselect()) {
             //CK
-            var tv_cookie = (TextView) contentView.findViewById(R.id.web_inputData_cookie);
+            var ipCookie = (TextView) contentView.findViewById(R.id.web_inputData_cookie);
             var getCKK = CookieHep.getCookie(mContext, data, null);
-            tv_cookie.setText(getCKK);
+            ipCookie.setText(getCKK);
         }
+        //用户代理
+        var ipUserAgent = (TextView) contentView.findViewById(R.id.web_inputData_userAgent);
+        ipUserAgent.setText(data.getUserAgent());
         //备注
-        var tv_remark = (TextView) contentView.findViewById(R.id.web_inputData_remark);
-        tv_remark.setText(data.getRemark());
+        var ipRemark = (TextView) contentView.findViewById(R.id.web_inputData_remark);
+        ipRemark.setText(data.getRemark());
         //数据隔离
-        var tv_cookieIsolate = (Switch) contentView.findViewById(R.id.web_inputData_cookieIsolate);
-        tv_cookieIsolate.setChecked(data.getCookieIsolate());
+        var ipCookieIsolate = (Switch) contentView.findViewById(R.id.web_inputData_cookieIsolate);
+        ipCookieIsolate.setChecked(data.getCookieIsolate());
         //不支持的系统版本隐藏，安卓9
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-            tv_cookieIsolate.setVisibility(View.GONE);
+            ipCookieIsolate.setVisibility(View.GONE);
         }
         //按钮
         var btnOk = (Button) contentView.findViewById(R.id.web_inputData_btnOk);
@@ -80,12 +83,13 @@ public class WebDataDialog {
         btnOk.setOnClickListener(arg -> {
             var isOK = false;
             StaticObj.dialogLoading.show();
-            if (!tv_weburl.getText().toString().trim().isEmpty()
-                    && !tv_remark.getText().toString().isEmpty()) {
-                data.setWeburl(tv_weburl.getText().toString());
-                data.setCookiekey(tv_cookiekey.getText().toString());
-                data.setRemark(tv_remark.getText().toString());
-                data.setCookieIsolate(tv_cookieIsolate.isChecked());
+            if (!ipWeburl.getText().toString().trim().isEmpty()
+                    && !ipRemark.getText().toString().isEmpty()) {
+                data.setWeburl(ipWeburl.getText().toString());
+                data.setCookiekey(ipCookiekey.getText().toString());
+                data.setUserAgent(ipUserAgent.getText().toString());
+                data.setRemark(ipRemark.getText().toString());
+                data.setCookieIsolate(ipCookieIsolate.isChecked());
                 SqliteHelp.SaveWebData(data);
                 isOK = true;
             }

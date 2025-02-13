@@ -90,13 +90,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/strRemark" />
+                android:text="@string/strWebUserAgent" />
 
             <EditText
-                android:id="@+id/web_inputData_remark"
+                android:id="@+id/web_inputData_userAgent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/strRemarkHint"
+                android:hint="@string/strWebUserAgentHint"
                 android:maxLines="5"
                 android:minLines="1" />
         </LinearLayout>
@@ -109,13 +109,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/strWebUserAgent" />
+                android:text="@string/strRemark" />
 
             <EditText
-                android:id="@+id/web_inputData_userAgent"
+                android:id="@+id/web_inputData_remark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/strWebUserAgentHint"
+                android:hint="@string/strRemarkHint"
                 android:maxLines="5"
                 android:minLines="1" />
         </LinearLayout>

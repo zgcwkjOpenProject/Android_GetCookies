@@ -124,6 +124,7 @@ public class BrowserFragment extends Fragment {
                 MainActivity.activity.restartApp();
             });
             builder.show();
+            return null;
         }
         //浏览器
         var mWebview = (WebView) view.findViewById(R.id.my_webview);

@@ -69,10 +69,20 @@ public class BrowserFragment extends Fragment {
         if (id == R.id.browser_btnGetCK) {//获取按钮
             CookieHep.getCookie(context, null, handler);
             return true;
+        } else if (id == R.id.browser_btnGoBack) {//回退按钮
+            var mWebview = (WebView) view.findViewById(R.id.my_webview);
+            if (mWebview.canGoBack()) {
+                mWebview.goBack();
+            }
+            return true;
+        } else if (id == R.id.browser_btnRefresh) {//刷新按钮
+            openWebUrl(view, true);
+            return true;
         } else if (id == R.id.web_btnResetBrowser) {//重置浏览器按钮
             var builder = new AlertDialog.Builder(context);
             builder.setIcon(R.drawable.ic_launcher);
             builder.setTitle("确定重置浏览器吗？");
+            builder.setMessage("重置浏览器，将清除登录凭据等所有数据。");
             //设置按钮事件
             builder.setPositiveButton("确定", (dialog, which) -> {
                 CookieManager.getInstance().removeAllCookies(null);//清除CK
@@ -87,9 +97,6 @@ public class BrowserFragment extends Fragment {
             });
             //显示对话框
             builder.show();
-            return true;
-        } else if (id == R.id.browser_btnRefresh) {//刷新按钮
-            openWebUrl(view, true);
             return true;
         }
         //调用基类处理

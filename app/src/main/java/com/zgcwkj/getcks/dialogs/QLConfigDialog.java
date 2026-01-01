@@ -63,29 +63,21 @@ public class QLConfigDialog {
         dialog.show();
         //确定按钮事件
         btnOk.setOnClickListener(arg -> {
-            var isOK = false;
+            var isOK = true;
             StaticObj.dialogLoading.show();
-            if (!qlurl.getText().toString().trim().isEmpty()) {
-                data.setWeburl(qlurl.getText().toString());
-                data.setClientId(qlClientId.getText().toString());
-                data.setClientSecret(qlClientSecret.getText().toString());
-                data.setAutoEnable(qlAutoEnable.isChecked());
-                QLongHelp.setData(mContext, data);
-                isOK = true;
-            }
+            data.setWeburl(qlurl.getText().toString());
+            data.setClientId(qlClientId.getText().toString());
+            data.setClientSecret(qlClientSecret.getText().toString());
+            data.setAutoEnable(qlAutoEnable.isChecked());
+            QLongHelp.setData(mContext, data);
             //发送消息
             StaticObj.sendMsg(handler, (isOK ? 11 : 0));
         });
         //清空按钮事件
         btnClear.setOnClickListener(arg -> {
-            StaticObj.dialogLoading.show();
-            //清空数据
-            var isOK = QLongHelp.clearData(mContext);
-            isOK = true;
-            //发送消息
-            StaticObj.sendMsg(handler, (isOK ? 11 : 0));
-            //关闭弹窗
-            close();
+            qlurl.setText("");
+            qlClientId.setText("");
+            qlClientSecret.setText("");
         });
         //取消按钮事件
         btnCancel.setOnClickListener(arg -> {

@@ -5,9 +5,12 @@
         android:title="@string/menu_getCK"
         app:showAsAction="always" />
     <item
-        android:id="@+id/web_btnResetBrowser"
-        android:title="@string/menu_resetBrowser" />
+        android:id="@+id/browser_btnGoBack"
+        android:title="@string/strGoBack" />
     <item
         android:id="@+id/browser_btnRefresh"
         android:title="@string/strRefresh" />
+    <item
+        android:id="@+id/web_btnResetBrowser"
+        android:title="@string/menu_resetBrowser" />
 </menu>

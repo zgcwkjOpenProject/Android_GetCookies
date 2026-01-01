@@ -197,8 +197,11 @@ public class SqliteHelp extends SQLiteOpenHelper {
         var data4 = new WebData(false, "https://plogin.m.jd.com/login/login/", "pt_pin;pt_key;", true, "京东CK2");
         addWebData(data4, db);
         //默认数据
-        var data5 = new WebData(false, "https://h5.ele.me/login/", "unb;cookie2;USERID;SID;", false, "饿了么CK");
+        var data5 = new WebData(false, "https://rewards.bing.com/welcome","", false, "必应CK");
         addWebData(data5, db);
+        //默认数据
+        var data6 = new WebData(false, "https://h5.ele.me/login/", "unb;cookie2;USERID;SID;", false, "饿了么CK");
+        addWebData(data6, db);
     }
 
     @Override

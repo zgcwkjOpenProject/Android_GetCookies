@@ -9,6 +9,7 @@
     <string name="strCancel">Cancel</string>
     <string name="strRemove">Delete</string>
     <string name="strClear">Clear</string>
+    <string name="strGoBack">GoBack</string>
     <string name="strRefresh">Refresh</string>
     <!--菜单-->
     <string name="menu_web">Web</string>

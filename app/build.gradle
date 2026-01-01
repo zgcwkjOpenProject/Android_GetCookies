@@ -10,8 +10,8 @@ android {
         applicationId "com.zgcwkj.getcks"
         minSdk 23
         targetSdk 34
-        versionCode 25021301
-        versionName "1.1"
+        versionCode 26010101
+        versionName "1.2"
     }
 
     buildTypes {

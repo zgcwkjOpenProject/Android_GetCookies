@@ -9,6 +9,7 @@
     <string name="strCancel">取消</string>
     <string name="strRemove">删除</string>
     <string name="strClear">清除</string>
+    <string name="strGoBack">回退</string>
     <string name="strRefresh">刷新</string>
     <!--菜单-->
     <string name="menu_web">网站</string>

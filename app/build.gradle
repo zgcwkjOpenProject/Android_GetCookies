@@ -4,7 +4,8 @@ plugins {
 
 android {
     namespace 'com.zgcwkj.getcks'
-    compileSdk 34
+    compileSdk 36
+    buildToolsVersion "36.0.0"
 
     defaultConfig {
         applicationId "com.zgcwkj.getcks"
